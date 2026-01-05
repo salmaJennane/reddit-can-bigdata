@@ -1,0 +1,331 @@
+# ==========================================
+# DOCKER COMPOSE - REDDIT CAN 2025
+# Pipeline Big Data Complet
+# ==========================================
+
+x-airflow-common:
+  &airflow-common
+  image: apache/airflow:2.8.1-python3.11
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: 'fb8bW8Ar3rFV8jM0uJsHnQ8dP0kQzR8Y3lK4vN6mT8E='
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+    _PIP_ADDITIONAL_REQUIREMENTS: 'pymongo kafka-python apache-airflow-providers-docker'
+  volumes:
+    - ${AIRFLOW_PROJ_DIR:-.}/airflow/dags:/opt/airflow/dags
+    - ${AIRFLOW_PROJ_DIR:-.}/airflow/logs:/opt/airflow/logs
+    - ${AIRFLOW_PROJ_DIR:-.}/airflow/plugins:/opt/airflow/plugins
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  user: "50000:0"
+  depends_on:
+    &airflow-common-depends-on
+    postgres:
+      condition: service_healthy
+  networks:
+    - bigdata-network
+
+services:
+  # ==========================================
+  # POSTGRESQL (pour Airflow)
+  # ==========================================
+  postgres:
+    image: postgres:14
+    container_name: airflow-postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bigdata-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==========================================
+  # AIRFLOW INIT
+  # ==========================================
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow-init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        mkdir -p /opt/airflow/logs /opt/airflow/dags /opt/airflow/plugins
+        airflow db migrate
+        airflow users create \
+          --username admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --password admin || true
+    environment:
+      <<: *airflow-common-env
+
+  # ==========================================
+  # AIRFLOW WEBSERVER
+  # ==========================================
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow-webserver
+    command: webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ==========================================
+  # AIRFLOW SCHEDULER
+  # ==========================================
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow-scheduler
+    command: scheduler
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ==========================================
+  # ZOOKEEPER
+  # ==========================================
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - bigdata-network
+    restart: unless-stopped
+
+  # ==========================================
+  # KAFKA
+  # ==========================================
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 60000
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 60000
+    networks:
+      - bigdata-network
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+
+  # ==========================================
+  # MONGODB
+  # ==========================================
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: reddit_can
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - bigdata-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  # ==========================================
+  # MONGO EXPRESS
+  # ==========================================
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin123
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin123@mongodb:27017/
+      ME_CONFIG_BASICAUTH: false
+    networks:
+      - bigdata-network
+    restart: unless-stopped
+
+  # ==========================================
+  # REDDIT SCRAPER OPTIMISÉ → KAFKA
+  # ==========================================
+  scraper-producer:
+    build:
+      context: ./scraper
+      dockerfile: Dockerfile
+    container_name: scraper-producer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_TOPIC: reddit-can-posts
+      SCRAPING_INTERVAL: 600
+      PYTHONUNBUFFERED: 1
+    networks:
+      - bigdata-network
+    volumes:
+      - ./scraper:/app
+    restart: unless-stopped
+
+  # ==========================================
+  # KAFKA CONSUMER → MONGODB
+  # ==========================================
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    container_name: kafka-consumer
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_TOPIC: reddit-can-posts
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+      PYTHONUNBUFFERED: 1
+    networks:
+      - bigdata-network
+    volumes:
+      - ./consumer:/app
+    restart: unless-stopped
+
+  # ==========================================
+  # SPARK STREAMING → MONGODB (processed)
+  # ==========================================
+  spark-streaming:
+    build:
+      context: ./spark-streaming-pyspark
+      dockerfile: Dockerfile
+    container_name: spark-streaming-pyspark
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+    networks:
+      - bigdata-network
+    volumes:
+      - ./spark-streaming-pyspark:/app
+      - spark_checkpoints:/tmp
+    restart: unless-stopped
+
+  # ==========================================
+  # SPARK ML SENTIMENT (Lancement manuel)
+  # ==========================================
+  spark-ml-sentiment:
+    build:
+      context: ./spark-ml-sentiment
+      dockerfile: Dockerfile
+    container_name: spark-ml-sentiment
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+    networks:
+      - bigdata-network
+    volumes:
+      - ./spark-ml-sentiment:/app
+      - spark_models:/app/models
+    profiles:
+      - ml-training
+
+  # ==========================================
+  # STREAMLIT DASHBOARD
+  # ==========================================
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: streamlit-dashboard
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "8501:8501"
+    environment:
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+    networks:
+      - bigdata-network
+    restart: unless-stopped
+
+# ==========================================
+# VOLUMES
+# ==========================================
+volumes:
+  postgres_data:
+    driver: local
+  mongodb_data:
+    driver: local
+  spark_checkpoints:
+    driver: local
+  spark_models:
+    driver: local
+
+# ==========================================
+# RÉSEAU
+# ==========================================
+networks:
+  bigdata-network:
+    driver: bridge

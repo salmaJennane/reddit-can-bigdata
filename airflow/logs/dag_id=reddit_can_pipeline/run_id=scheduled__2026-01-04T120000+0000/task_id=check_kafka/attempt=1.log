@@ -1,0 +1,22 @@
+[2026-01-04T18:00:04.877+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: reddit_can_pipeline.check_kafka scheduled__2026-01-04T12:00:00+00:00 [queued]>
+[2026-01-04T18:00:04.902+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: reddit_can_pipeline.check_kafka scheduled__2026-01-04T12:00:00+00:00 [queued]>
+[2026-01-04T18:00:04.904+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-01-04T18:00:04.948+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): check_kafka> on 2026-01-04 12:00:00+00:00
+[2026-01-04T18:00:04.965+0000] {standard_task_runner.py:60} INFO - Started process 548 to run task
+[2026-01-04T18:00:04.976+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'reddit_can_pipeline', 'check_kafka', 'scheduled__2026-01-04T12:00:00+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/reddit_can_pipeline.py', '--cfg-path', '/tmp/tmphl85ivug']
+[2026-01-04T18:00:04.995+0000] {standard_task_runner.py:88} INFO - Job 9: Subtask check_kafka
+[2026-01-04T18:00:05.311+0000] {task_command.py:423} INFO - Running <TaskInstance: reddit_can_pipeline.check_kafka scheduled__2026-01-04T12:00:00+00:00 [running]> on host ea2e4c1a0da0
+[2026-01-04T18:00:05.867+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='bigdata_team' AIRFLOW_CTX_DAG_ID='reddit_can_pipeline' AIRFLOW_CTX_TASK_ID='check_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T12:00:00+00:00'
+[2026-01-04T18:00:05.874+0000] {logging_mixin.py:188} INFO - 🔍 Vérification de Kafka...
+[2026-01-04T18:00:05.893+0000] {conn.py:400} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=bootstrap-0 host=kafka:29092 <connecting> [IPv4 ('172.18.0.6', 29092)]>: connecting to kafka:29092 [('172.18.0.6', 29092) IPv4]
+[2026-01-04T18:00:05.917+0000] {conn.py:622} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=bootstrap-0 host=kafka:29092 <checking_api_versions_recv> [IPv4 ('172.18.0.6', 29092)]>: Broker version identified as 2.6
+[2026-01-04T18:00:05.927+0000] {conn.py:461} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=bootstrap-0 host=kafka:29092 <connected> [IPv4 ('172.18.0.6', 29092)]>: Connection complete.
+[2026-01-04T18:00:05.961+0000] {conn.py:400} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=1 host=kafka:29092 <connecting> [IPv4 ('172.18.0.6', 29092)]>: connecting to kafka:29092 [('172.18.0.6', 29092) IPv4]
+[2026-01-04T18:00:05.975+0000] {conn.py:461} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=1 host=kafka:29092 <connected> [IPv4 ('172.18.0.6', 29092)]>: Connection complete.
+[2026-01-04T18:00:05.978+0000] {conn.py:951} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=bootstrap-0 host=kafka:29092 <connected> [IPv4 ('172.18.0.6', 29092)]>: Closing connection. 
+[2026-01-04T18:00:06.016+0000] {conn.py:951} INFO - <BrokerConnection client_id=kafka-python-2.3.0, node_id=1 host=kafka:29092 <connected> [IPv4 ('172.18.0.6', 29092)]>: Closing connection. 
+[2026-01-04T18:00:06.031+0000] {logging_mixin.py:188} INFO - ✅ Kafka opérationnel!
+[2026-01-04T18:00:06.036+0000] {python.py:201} INFO - Done. Returned value was: True
+[2026-01-04T18:00:06.174+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=reddit_can_pipeline, task_id=check_kafka, execution_date=20260104T120000, start_date=20260104T180004, end_date=20260104T180006
+[2026-01-04T18:00:06.233+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-01-04T18:00:06.428+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

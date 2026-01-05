@@ -1,0 +1,85 @@
+[2026-01-04T18:10:58.641+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: reddit_can_pipeline_optimized.scraping_intensive scheduled__2026-01-04T12:00:00+00:00 [queued]>
+[2026-01-04T18:10:58.672+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: reddit_can_pipeline_optimized.scraping_intensive scheduled__2026-01-04T12:00:00+00:00 [queued]>
+[2026-01-04T18:10:58.674+0000] {taskinstance.py:2170} INFO - Starting attempt 3 of 4
+[2026-01-04T18:10:58.727+0000] {taskinstance.py:2191} INFO - Executing <Task(DockerOperator): scraping_intensive> on 2026-01-04 12:00:00+00:00
+[2026-01-04T18:10:58.741+0000] {standard_task_runner.py:60} INFO - Started process 907 to run task
+[2026-01-04T18:10:58.751+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'reddit_can_pipeline_optimized', 'scraping_intensive', 'scheduled__2026-01-04T12:00:00+00:00', '--job-id', '15', '--raw', '--subdir', 'DAGS_FOLDER/reddit_can_pipeline_optimized.py', '--cfg-path', '/tmp/tmp8xtwb_0d']
+[2026-01-04T18:10:58.758+0000] {standard_task_runner.py:88} INFO - Job 15: Subtask scraping_intensive
+[2026-01-04T18:10:58.961+0000] {task_command.py:423} INFO - Running <TaskInstance: reddit_can_pipeline_optimized.scraping_intensive scheduled__2026-01-04T12:00:00+00:00 [running]> on host ea2e4c1a0da0
+[2026-01-04T18:10:59.350+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='bigdata_team' AIRFLOW_CTX_DAG_ID='reddit_can_pipeline_optimized' AIRFLOW_CTX_TASK_ID='scraping_intensive' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T12:00:00+00:00'
+[2026-01-04T18:10:59.641+0000] {docker.py:359} INFO - Starting docker container from image projet-bigdata-can-scraper-producer:latest
+[2026-01-04T18:10:59.673+0000] {docker.py:367} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2026-01-04T18:10:59.796+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 265, in _raise_for_status
+    response.raise_for_status()
+  File "/home/airflow/.local/lib/python3.11/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.51/containers/create?name=***_scraper_intensive_20260104T120000
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 364, in _run_image
+    return self._run_image_with_mounts([*self.mounts, tmp_mount], add_tmp_variable=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 391, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/container.py", line 439, in create_container
+    return self.create_container_from_config(config, name, platform)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/container.py", line 456, in create_container_from_config
+    return self._result(res, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 271, in _result
+    self._raise_for_status(response)
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 267, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.51/containers/create?name=airflow_scraper_intensive_20260104T120000: Bad Request ("invalid mount config for type "bind": bind source path does not exist: /tmp/airflowtmps5oz4c76")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 265, in _raise_for_status
+    response.raise_for_status()
+  File "/home/airflow/.local/lib/python3.11/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 409 Client Error: Conflict for url: http+docker://localhost/v1.51/containers/create?name=***_scraper_intensive_20260104T120000
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 428, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 502, in execute
+    return self._run_image()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 373, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 391, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/container.py", line 439, in create_container
+    return self.create_container_from_config(config, name, platform)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/container.py", line 456, in create_container_from_config
+    return self._result(res, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 271, in _result
+    self._raise_for_status(response)
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 267, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 409 Client Error for http+docker://localhost/v1.51/containers/create?name=airflow_scraper_intensive_20260104T120000: Conflict ("Conflict. The container name "/airflow_scraper_intensive_20260104T120000" is already in use by container "962ca05f1265fffee94812737e44e882dc47bd593fe8abc3149939d03d1131d9". You have to remove (or rename) that container to be able to reuse that name.")
+[2026-01-04T18:10:59.829+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=reddit_can_pipeline_optimized, task_id=scraping_intensive, execution_date=20260104T120000, start_date=20260104T181058, end_date=20260104T181059
+[2026-01-04T18:10:59.859+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 15 for task scraping_intensive (409 Client Error for http+docker://localhost/v1.51/containers/create?name=airflow_scraper_intensive_20260104T120000: Conflict ("Conflict. The container name "/airflow_scraper_intensive_20260104T120000" is already in use by container "962ca05f1265fffee94812737e44e882dc47bd593fe8abc3149939d03d1131d9". You have to remove (or rename) that container to be able to reuse that name."); 907)
+[2026-01-04T18:10:59.906+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-01-04T18:11:00.012+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
