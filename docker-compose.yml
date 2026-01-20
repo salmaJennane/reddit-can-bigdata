@@ -292,12 +292,59 @@ services:
       - ml-training
 
   # ==========================================
-  # STREAMLIT DASHBOARD
+  # NETWORK ANALYSIS (Lancement manuel)
+  # ==========================================
+  network-analysis:
+    build:
+      context: ./network-analysis
+      dockerfile: Dockerfile
+    container_name: network-analysis
+    image: projet-bigdata-can-network-analysis:latest
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/
+      PYTHONUNBUFFERED: 1
+    networks:
+      - bigdata-network
+    volumes:
+      - ./network-analysis:/app
+    profiles:
+      - network-analysis
+
+  # ==========================================
+  # TOPIC MODELING LDA (Lancement manuel)
+  # ==========================================
+  topic-modeling:
+    build:
+      context: ./topic-modeling
+      dockerfile: Dockerfile
+    container_name: topic-modeling
+    image: projet-bigdata-can-topic-modeling:latest
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+      PYTHONUNBUFFERED: 1
+    networks:
+      - bigdata-network
+    volumes:
+      - ./topic-modeling:/app
+      - spark_models:/app/models
+    profiles:
+      - topic-modeling
+
+  # ==========================================
+  # STREAMLIT DASHBOARD - AVEC VOLUME MOUNT
   # ==========================================
   dashboard:
     build:
       context: ./dashboard
       dockerfile: Dockerfile
+      # Force le rebuild à chaque modification
+      no_cache: false
     container_name: streamlit-dashboard
     depends_on:
       mongodb:
@@ -306,8 +353,12 @@ services:
       - "8501:8501"
     environment:
       MONGODB_URI: mongodb://admin:admin123@mongodb:27017/reddit_can?authSource=admin
+      PYTHONUNBUFFERED: 1
     networks:
       - bigdata-network
+    # SOLUTION: Monte le code en temps réel pour voir les changements
+    volumes:
+      - ./dashboard:/app
     restart: unless-stopped
 
 # ==========================================

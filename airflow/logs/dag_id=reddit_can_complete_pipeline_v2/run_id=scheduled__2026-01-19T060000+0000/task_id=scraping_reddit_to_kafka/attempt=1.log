@@ -1,0 +1,521 @@
+[2026-01-19T12:00:19.109+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: reddit_can_complete_pipeline_v2.scraping_reddit_to_kafka scheduled__2026-01-19T06:00:00+00:00 [queued]>
+[2026-01-19T12:00:19.141+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: reddit_can_complete_pipeline_v2.scraping_reddit_to_kafka scheduled__2026-01-19T06:00:00+00:00 [queued]>
+[2026-01-19T12:00:19.143+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-01-19T12:00:19.207+0000] {taskinstance.py:2191} INFO - Executing <Task(DockerOperator): scraping_reddit_to_kafka> on 2026-01-19 06:00:00+00:00
+[2026-01-19T12:00:19.227+0000] {standard_task_runner.py:60} INFO - Started process 5113 to run task
+[2026-01-19T12:00:19.237+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'reddit_can_complete_pipeline_v2', 'scraping_reddit_to_kafka', 'scheduled__2026-01-19T06:00:00+00:00', '--job-id', '67', '--raw', '--subdir', 'DAGS_FOLDER/reddit_can_complete_pipeline.py', '--cfg-path', '/tmp/tmp8f09di11']
+[2026-01-19T12:00:19.245+0000] {standard_task_runner.py:88} INFO - Job 67: Subtask scraping_reddit_to_kafka
+[2026-01-19T12:00:19.404+0000] {task_command.py:423} INFO - Running <TaskInstance: reddit_can_complete_pipeline_v2.scraping_reddit_to_kafka scheduled__2026-01-19T06:00:00+00:00 [running]> on host 8778a7da77bb
+[2026-01-19T12:00:19.667+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='bigdata_team' AIRFLOW_CTX_DAG_ID='reddit_can_complete_pipeline_v2' AIRFLOW_CTX_TASK_ID='scraping_reddit_to_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-01-19T06:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-19T06:00:00+00:00'
+[2026-01-19T12:00:19.999+0000] {docker.py:359} INFO - Starting docker container from image projet-bigdata-can-scraper-producer:latest
+[2026-01-19T12:00:22.168+0000] {docker.py:429} INFO - 🔌 Connexion à Kafka: kafka:29092
+📍 Topic: reddit-can-posts
+⏳ Attente de Kafka...
+[2026-01-19T12:00:22.563+0000] {docker.py:429} INFO - ✅ Kafka est prêt!
+[2026-01-19T12:00:22.688+0000] {docker.py:429} INFO - ✅ Connecté à Kafka!
+[2026-01-19T12:00:22.691+0000] {docker.py:429} INFO - ======================================================================
+🎯 REDDIT KAFKA PRODUCER - MODE INTENSIF
+======================================================================
+📍 Topic Kafka: reddit-can-posts
+⏱️  Intervalle: 600s
+🔍 Mots-clés: 52
+📍 Subreddits: 18
+======================================================================
+
+
+🔄 CYCLE #1
+
+======================================================================
+🚀 COLLECTE INTENSIVE - 2026-01-19 12:00:22
+======================================================================
+
+📍 PHASE 1: Recherche ciblée par mots-clés
+----------------------------------------------------------------------
+🔎 Recherche: 'AFCON 2025' (global)...
+[2026-01-19T12:00:24.168+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025 Quarter-Finals Bracket.... (score: 1084)
+[2026-01-19T12:00:24.268+0000] {docker.py:429} INFO - ✅ Post envoyé: Birthplaces of all AFCON 2025 players on the map... (score: 343)
+[2026-01-19T12:00:24.378+0000] {docker.py:429} INFO - ✅ Post envoyé: 2025 AFCON Knockout Bracket... (score: 321)
+[2026-01-19T12:00:24.483+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025 Semi-Finals Bracket... (score: 127)
+[2026-01-19T12:00:24.591+0000] {docker.py:429} INFO - ✅ Post envoyé: BeIN Sports France's predictions for the 2025 AFCO... (score: 29)
+[2026-01-19T12:00:24.698+0000] {docker.py:429} INFO - ✅ Post envoyé: The 2025 AFCON Semi Finals... (score: 102)
+[2026-01-19T12:00:24.806+0000] {docker.py:429} INFO - ✅ Post envoyé: Scenes as Senegal defeat Morocco in the AFCON 2025... (score: 6347)
+[2026-01-19T12:00:24.911+0000] {docker.py:429} INFO - ✅ Post envoyé: Zambia coach Moses Sichone on Morocco as the Host ... (score: 6590)
+[2026-01-19T12:00:25.019+0000] {docker.py:429} INFO - ✅ Post envoyé: The 29-year-old Abdou Abdel Mefire is the youngest... (score: 2337)
+[2026-01-19T12:00:25.125+0000] {docker.py:429} INFO - ✅ Post envoyé: Sadio Mané (Senegal) wins Player of the Tournament... (score: 2512)
+[2026-01-19T12:00:25.234+0000] {docker.py:429} INFO - ✅ Post envoyé: CAF reveals ball for AFCON 2025 final.... (score: 2014)
+[2026-01-19T12:00:25.337+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal national team celebrate as they lift the A... (score: 1815)
+[2026-01-19T12:00:25.446+0000] {docker.py:429} INFO - ✅ Post envoyé: The Côte d'Ivoire national football team arriving ... (score: 1631)
+[2026-01-19T12:00:25.550+0000] {docker.py:429} INFO - ✅ Post envoyé: Brahim Diaz wins golden boot at AFCON 2025... (score: 785)
+[2026-01-19T12:00:25.656+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025 Megathread... (score: 52)
+[2026-01-19T12:00:25.764+0000] {docker.py:429} INFO - ✅ Post envoyé: Amad and the rest of the Côte d'Ivoire squad arriv... (score: 1421)
+[2026-01-19T12:00:25.872+0000] {docker.py:429} INFO - ✅ Post envoyé: Kylian Mbappe at the Morocco vs Mali game at Afcon... (score: 1226)
+[2026-01-19T12:00:25.982+0000] {docker.py:429} INFO - ✅ Post envoyé: Live! Senegal vs Morocco – AFCON 2025 Final on beI... (score: 1)
+[2026-01-19T12:00:26.087+0000] {docker.py:429} INFO - ✅ Post envoyé: The Senegalese FA has lodged an official complaint... (score: 49)
+[2026-01-19T12:00:26.196+0000] {docker.py:429} INFO - ✅ Post envoyé: Benin's poster ahead of their AFCON game against E... (score: 8007)
+[2026-01-19T12:00:26.302+0000] {docker.py:429} INFO - ✅ Post envoyé: [CAF] Official AFCON 2025 Team of the group stage... (score: 376)
+[2026-01-19T12:00:26.410+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco to the 2025 AFCON Final!... (score: 146)
+[2026-01-19T12:00:26.522+0000] {docker.py:429} INFO - ✅ Post envoyé: Côte d'Ivoire, arrived in style in Morocco for the... (score: 822)
+[2026-01-19T12:00:26.623+0000] {docker.py:429} INFO - ✅ Post envoyé: [CAF] Official AFCON 2025 Team of the group stage... (score: 319)
+[2026-01-19T12:00:26.729+0000] {docker.py:429} INFO - ✅ Post envoyé: Brahim Diaz opens the scoring for Morocco against ... (score: 569)
+[2026-01-19T12:00:26.835+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Algeria vs Nigeria - AFCON 2025... (score: 3)
+[2026-01-19T12:00:26.941+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria claims bronze at AFCON 2025... (score: 236)
+[2026-01-19T12:00:27.047+0000] {docker.py:429} INFO - ✅ Post envoyé: The first semi-final of AFCON 2025... (score: 95)
+[2026-01-19T12:00:27.154+0000] {docker.py:429} INFO - ✅ Post envoyé: Noussair Mazraoui assist vs Comoros (AFCON 2025 Gr... (score: 348)
+[2026-01-19T12:00:27.261+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Algeria vs DR Congo - AFCON 2025... (score: 5)
+[2026-01-19T12:00:27.366+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025 (so far): penalties missed — 2/2, bicyc... (score: 393)
+[2026-01-19T12:00:27.472+0000] {docker.py:429} INFO - ✅ Post envoyé: This is how the Senegal national team arrived in R... (score: 55)
+[2026-01-19T12:00:27.582+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025: Faced with empty seats during Egypt-Zi... (score: 239)
+[2026-01-19T12:00:27.686+0000] {docker.py:429} INFO - ✅ Post envoyé: What if every dual nationality player could repres... (score: 36)
+[2026-01-19T12:00:27.794+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal vs Morocco finala AFCON 2025 final as host... (score: 41)
+[2026-01-19T12:00:27.903+0000] {docker.py:429} INFO - ✅ Post envoyé: Nora Fatehi is reportedly dating Spanish Footballe... (score: 54)
+[2026-01-19T12:00:28.026+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria claims the AFCON 2025 Bronze Medal... (score: 107)
+[2026-01-19T12:00:28.146+0000] {docker.py:429} INFO - ✅ Post envoyé: The Pharaohs are through to the AFCON 2025 semi-fi... (score: 67)
+[2026-01-19T12:00:28.244+0000] {docker.py:429} INFO - ✅ Post envoyé: Nora Fatehi is reportedly dating Spanish Footballe... (score: 90)
+[2026-01-19T12:00:28.351+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria will face Algeria in the Quarter Finals AF... (score: 63)
+[2026-01-19T12:00:28.460+0000] {docker.py:429} INFO - ✅ Post envoyé: Opta Supercomputer predicts AFCON 2025  Morocco fa... (score: 83)
+[2026-01-19T12:00:28.569+0000] {docker.py:429} INFO - ✅ Post envoyé: [BBC] 'I can kill you right now' - Sudan's footbal... (score: 3056)
+[2026-01-19T12:00:28.677+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Algeria vs Equatorial Guinea - AFCON... (score: 3)
+[2026-01-19T12:00:28.791+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria will face Morocco in the Semi-Final AFCON ... (score: 44)
+[2026-01-19T12:00:28.892+0000] {docker.py:429} INFO - ✅ Post envoyé: [Megathread] AFCON 2025 Knockout Stages &amp; Tour... (score: 10)
+[2026-01-19T12:00:28.999+0000] {docker.py:429} INFO - ✅ Post envoyé: Match officials for both Afcon 2025 Semifinals... (score: 31)
+[2026-01-19T12:00:29.105+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025: Ndidi offers to pay Super Eagles' bonu... (score: 95)
+[2026-01-19T12:00:29.208+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal to the 2025 AFCON Final!... (score: 96)
+[2026-01-19T12:00:29.314+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Algeria vs Sudan - AFCON 2025... (score: 6)
+[2026-01-19T12:00:29.423+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Algeria vs Burkina Faso - AFCON 2025... (score: 3)
+[2026-01-19T12:00:29.525+0000] {docker.py:429} INFO - → 50 posts trouvés
+[2026-01-19T12:00:32.528+0000] {docker.py:429} INFO - 🔎 Recherche: 'Africa Cup 2025' (global)...
+[2026-01-19T12:00:33.775+0000] {docker.py:429} INFO - ✅ Post envoyé: The 2025 Africa Cup of Nations Quarter Finals... (score: 41)
+[2026-01-19T12:00:33.886+0000] {docker.py:429} INFO - ✅ Post envoyé: The 2025 Africa Cup of Nations Round of 16... (score: 65)
+[2026-01-19T12:00:33.991+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco's goal in the Africa Cup of Nations 2025 m... (score: 179)
+[2026-01-19T12:00:34.099+0000] {docker.py:429} INFO - ✅ Post envoyé: Africa Cup of Nations to be held every four years ... (score: 2823)
+[2026-01-19T12:00:34.211+0000] {docker.py:429} INFO - ✅ Post envoyé: As a neutral Fan of CAF 2025 Morocco, who do you w... (score: 21)
+[2026-01-19T12:00:34.314+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal 🇸🇳 are the champions of the 2025 Africa Cu... (score: 418)
+[2026-01-19T12:00:34.424+0000] {docker.py:429} INFO - ✅ Post envoyé: [Pre-Match Thread] Arsenal vs Crystal Palace | 23r... (score: 103)
+[2026-01-19T12:00:34.543+0000] {docker.py:429} INFO - ✅ Post envoyé: [Senegalese Football Federation] Concerns regardin... (score: 263)
+[2026-01-19T12:00:34.668+0000] {docker.py:429} INFO - ✅ Post envoyé: Ryan Rickelton, dropped from South Africa’s T20 Wo... (score: 173)
+[2026-01-19T12:00:34.770+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Senegal vs Morocco Live Score | Afri... (score: 9)
+[2026-01-19T12:00:34.776+0000] {docker.py:429} INFO - 
+[2026-01-19T12:00:35.097+0000] {docker.py:429} INFO - ✅ Post envoyé: Full Match || Africa Cup Of Nations 2025 || Senega... (score: 16)
+[2026-01-19T12:00:35.206+0000] {docker.py:429} INFO - ✅ Post envoyé: The 2025 Africa Cup of Nations Final... (score: 104)
+[2026-01-19T12:00:35.318+0000] {docker.py:429} INFO - ✅ Post envoyé: Mané v Salah: veteran superstars dominate buildup ... (score: 91)
+[2026-01-19T12:00:35.422+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Senegal vs Egypt Live Score | Africa... (score: 7)
+[2026-01-19T12:00:35.528+0000] {docker.py:429} INFO - ✅ Post envoyé: [Sounders FC] Best of luck to Nouhou and Georgi in... (score: 145)
+[2026-01-19T12:00:35.635+0000] {docker.py:429} INFO - ✅ Post envoyé: [RMC] Senegal-Morocco: 63 Arrests, 14 Police Offic... (score: 42)
+[2026-01-19T12:00:35.745+0000] {docker.py:429} INFO - ✅ Post envoyé: Where to Watch AFCON 2025 Live? Africa Cup of Nati... (score: 9)
+[2026-01-19T12:00:35.852+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025: Team guide and ones to watch ahead of ... (score: 31)
+[2026-01-19T12:00:35.957+0000] {docker.py:429} INFO - ✅ Post envoyé: The 2025 Africa Cup of Nations kicks off... (score: 88)
+[2026-01-19T12:00:36.064+0000] {docker.py:429} INFO - ✅ Post envoyé: 17 - South Africa had 17 shots on goal against Egy... (score: 20)
+[2026-01-19T12:00:36.172+0000] {docker.py:429} INFO - ✅ Post envoyé: Full Match || Africa Cup Of Nations 2025 || Nigeri... (score: 10)
+[2026-01-19T12:00:36.279+0000] {docker.py:429} INFO - ✅ Post envoyé: Africa Cup Of Nations 2025 Closing Ceremony... (score: 5)
+[2026-01-19T12:00:36.387+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Nigeria vs Morocco Live Score | Afri... (score: 2)
+[2026-01-19T12:00:36.493+0000] {docker.py:429} INFO - ✅ Post envoyé: Full Match || Africa Cup Of Nations 2025 || Senega... (score: 8)
+[2026-01-19T12:00:36.602+0000] {docker.py:429} INFO - ✅ Post envoyé: Full Match || Africa Cup Of Nations 2025 || Egypt ... (score: 3)
+[2026-01-19T12:00:36.708+0000] {docker.py:429} INFO - ✅ Post envoyé: Africa Cup of Nations Group Standings after Matchd... (score: 35)
+[2026-01-19T12:00:36.816+0000] {docker.py:429} INFO - ✅ Post envoyé: African Record: 135 television channels worldwide ... (score: 21)
+[2026-01-19T12:00:36.926+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Egypt vs Nigeria Live Score | Africa... (score: 6)
+[2026-01-19T12:00:37.031+0000] {docker.py:429} INFO - ✅ Post envoyé: Equatorial Guinea vs Algeria, Africa Cup of Nation... (score: 5)
+[2026-01-19T12:00:37.137+0000] {docker.py:429} INFO - ✅ Post envoyé: The Africa Cup 2025 has been added to eFootball (a... (score: 7)
+[2026-01-19T12:00:37.247+0000] {docker.py:429} INFO - ✅ Post envoyé: Africa Cup of Nations 2025 final: Senegal vs Moroc... (score: 1)
+[2026-01-19T12:00:37.359+0000] {docker.py:429} INFO - ✅ Post envoyé: South Africa's Bafana Bafana defeat Angola 2-1 at ... (score: 15)
+[2026-01-19T12:00:37.466+0000] {docker.py:429} INFO - ✅ Post envoyé: Africa cup paying out... (score: 36)
+[2026-01-19T12:00:37.574+0000] {docker.py:429} INFO - ✅ Post envoyé: Epic Showdown: Senegal Battles Morocco for Glory i... (score: 1)
+[2026-01-19T12:00:37.682+0000] {docker.py:429} INFO - ✅ Post envoyé: Zimbabwe vs South Africa, Africa Cup of Nations, 2... (score: 3)
+[2026-01-19T12:00:37.789+0000] {docker.py:429} INFO - ✅ Post envoyé: Ivory Coast vs Cameroon, Africa Cup of Nations, 28... (score: 3)
+[2026-01-19T12:00:37.898+0000] {docker.py:429} INFO - ✅ Post envoyé: Pape Gueye fires Senegal to Afcon glory against Mo... (score: 2)
+[2026-01-19T12:00:38.009+0000] {docker.py:429} INFO - ✅ Post envoyé: Pape Gueye fires Senegal to Afcon glory against Mo... (score: 3)
+[2026-01-19T12:00:38.121+0000] {docker.py:429} INFO - ✅ Post envoyé: PURE REALISM: SIMULATING THE AFRICA CUP... (score: 12)
+[2026-01-19T12:00:38.228+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Egypt vs Ivory Coast Live Score | Af... (score: 10)
+[2026-01-19T12:00:38.338+0000] {docker.py:429} INFO - ✅ Post envoyé: REQUEST: Senegal vs Botswana Africa Cup of Nations... (score: 2)
+[2026-01-19T12:00:38.444+0000] {docker.py:429} INFO - ✅ Post envoyé: Uganda vs Nigeria, Africa Cup of Nations, 30-Dec-2... (score: 1)
+[2026-01-19T12:00:38.554+0000] {docker.py:429} INFO - ✅ Post envoyé: Gabon vs Mozambique, Africa Cup of Nations, 28-Dec... (score: 2)
+[2026-01-19T12:00:38.673+0000] {docker.py:429} INFO - ✅ Post envoyé: PURE REALISM: SIMULATING THE AFRICA CUP... (score: 3)
+[2026-01-19T12:00:38.779+0000] {docker.py:429} INFO - ✅ Post envoyé: [ OptaJoe ] Against Tanzania in matchday one , Ale... (score: 7)
+[2026-01-19T12:00:38.889+0000] {docker.py:429} INFO - ✅ Post envoyé: Bank Al-Maghrib Issues a 250 Dirham Silver Commemo... (score: 18)
+[2026-01-19T12:00:38.996+0000] {docker.py:429} INFO - ✅ Post envoyé: Match Thread: Senegal vs W48 Live Score | Africa C... (score: 2)
+[2026-01-19T12:00:39.105+0000] {docker.py:429} INFO - ✅ Post envoyé: ⚽ [LIVE MATCH THREAD] Evening Action: Watch, Bet &... (score: 2)
+[2026-01-19T12:00:39.207+0000] {docker.py:429} INFO - → 50 posts trouvés
+[2026-01-19T12:00:42.216+0000] {docker.py:429} INFO - 🔎 Recherche: 'Morocco AFCON' (global)...
+[2026-01-19T12:00:43.685+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco will meet Senegal in the AFCON final on Su... (score: 1760)
+[2026-01-19T12:00:43.895+0000] {docker.py:429} INFO - ✅ Post envoyé: The sound level in the Moulay Abdellah Stadium in ... (score: 35)
+[2026-01-19T12:00:44.004+0000] {docker.py:429} INFO - ✅ Post envoyé: When can we stop pretending this entire AFCON isn'... (score: 0)
+[2026-01-19T12:00:44.109+0000] {docker.py:429} INFO - ✅ Post envoyé: [Official] Senegal crowned AFCON champions after 1... (score: 11121)
+[2026-01-19T12:00:44.318+0000] {docker.py:429} INFO - ✅ Post envoyé: Achraf Hakimi (Morocco) stealing Mendy’s (Senegal)... (score: 4291)
+[2026-01-19T12:00:44.427+0000] {docker.py:429} INFO - ✅ Post envoyé: 92nd-minute Senegal goal disallowed vs Morocco in ... (score: 2899)
+[2026-01-19T12:00:44.537+0000] {docker.py:429} INFO - ✅ Post envoyé: Chaos in AFCON final as Senegal coach and players ... (score: 4396)
+[2026-01-19T12:00:44.648+0000] {docker.py:429} INFO - ✅ Post envoyé: Mbappé, Tchouaméni and Koundé are in Morocco for A... (score: 4302)
+[2026-01-19T12:00:44.758+0000] {docker.py:429} INFO - ✅ Post envoyé: Manchester United on Instagram: “Commiserations to... (score: 986)
+[2026-01-19T12:00:44.965+0000] {docker.py:429} INFO - ✅ Post envoyé: Mohamed Salah: "This has been my favorite camp eve... (score: 1718)
+[2026-01-19T12:00:45.071+0000] {docker.py:429} INFO - ✅ Post envoyé: [FotMob] Brahim Diaz has scored in every game so f... (score: 687)
+[2026-01-19T12:00:45.177+0000] {docker.py:429} INFO - ✅ Post envoyé: [FotMob] Brahim Diaz has scored in every game so f... (score: 946)
+[2026-01-19T12:00:45.385+0000] {docker.py:429} INFO - ✅ Post envoyé: Noussair Mazraoui and Morocco reach AFCON 2026 Fin... (score: 738)
+[2026-01-19T12:00:45.494+0000] {docker.py:429} INFO - ✅ Post envoyé: 𝗪𝗵𝗲𝗿𝗲 to watch AFCON final (Morocco vs Senegal) Li... (score: 1)
+[2026-01-19T12:00:45.602+0000] {docker.py:429} INFO - ✅ Post envoyé: Spotted a LaPorta Jersey at the Senegal v Egypt AF... (score: 1318)
+[2026-01-19T12:00:45.711+0000] {docker.py:429} INFO - ✅ Post envoyé: LIVE: Senegal vs Morocco – AFCON final... (score: 1)
+[2026-01-19T12:00:45.917+0000] {docker.py:429} INFO - ✅ Post envoyé: Zohran Mamdani hosted a watch party for the AFCON ... (score: 1736)
+[2026-01-19T12:00:46.025+0000] {docker.py:429} INFO - ✅ Post envoyé: Since 2022, Morocco has won the CHAN 2024 (domesti... (score: 507)
+[2026-01-19T12:00:46.331+0000] {docker.py:429} INFO - ✅ Post envoyé: Zambia player Wilson Chisala: "Morocco is an overr... (score: 270)
+[2026-01-19T12:00:46.538+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco are through to the Semi Finals of AFCON... (score: 264)
+[2026-01-19T12:00:46.648+0000] {docker.py:429} INFO - ✅ Post envoyé: Does anyone here actually watch the AFCON that is ... (score: 56)
+[2026-01-19T12:00:46.758+0000] {docker.py:429} INFO - ✅ Post envoyé: South Africa coach Hugo Broos says there is no AFC... (score: 133)
+[2026-01-19T12:00:46.865+0000] {docker.py:429} INFO - ✅ Post envoyé: Air Senegal are looking for the supporter responsi... (score: 293)
+[2026-01-19T12:00:46.973+0000] {docker.py:429} INFO - ✅ Post envoyé: Noussair Mazraoui starts for Morocco vs Senegal in... (score: 239)
+[2026-01-19T12:00:47.180+0000] {docker.py:429} INFO - ✅ Post envoyé: A statement from the senegalese foreign ministry a... (score: 66)
+[2026-01-19T12:00:47.288+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2026 Semifinalists... (score: 3724)
+[2026-01-19T12:00:47.395+0000] {docker.py:429} INFO - ✅ Post envoyé: That Senegal vs Morocco AFCON Final... (score: 591)
+[2026-01-19T12:00:47.515+0000] {docker.py:429} INFO - ✅ Post envoyé: En-Nesyri scores the winning pen and takes Morocco... (score: 29)
+[2026-01-19T12:00:47.612+0000] {docker.py:429} INFO - ✅ Post envoyé: En-Nesyri goat carried Morocco to the AFCON final... (score: 192)
+[2026-01-19T12:00:47.720+0000] {docker.py:429} INFO - ✅ Post envoyé: Hosting the AFCON in Morocco was a lose-lose situa... (score: 52)
+[2026-01-19T12:00:47.932+0000] {docker.py:429} INFO - ✅ Post envoyé: Noussair Mazraoui celebrates as Morocco beat Niger... (score: 301)
+[2026-01-19T12:00:48.140+0000] {docker.py:429} INFO - ✅ Post envoyé: Looking to buy tickets for Morocco 🇲🇦 vs Nigeria 🇳... (score: 34)
+[2026-01-19T12:00:48.248+0000] {docker.py:429} INFO - ✅ Post envoyé: Bryan Mbeumo and Noussair Mazraoui start for Camer... (score: 119)
+[2026-01-19T12:00:48.359+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco wins the fair play award AFCON 2026... (score: 119)
+[2026-01-19T12:00:48.459+0000] {docker.py:429} INFO - ✅ Post envoyé: Noussair Mazraoui starts for Morocco vs Nigeria in... (score: 194)
+[2026-01-19T12:00:48.565+0000] {docker.py:429} INFO - ✅ Post envoyé: This moment of Sadio Mané instructing his Senegele... (score: 2634)
+[2026-01-19T12:00:48.682+0000] {docker.py:429} INFO - ✅ Post envoyé: Which country are you supporting in the currently ... (score: 23)
+[2026-01-19T12:00:48.789+0000] {docker.py:429} INFO - ✅ Post envoyé: Where to watch AFCON final (Morocco vs Senegal) Li... (score: 1)
+[2026-01-19T12:00:48.995+0000] {docker.py:429} INFO - → 50 posts trouvés
+[2026-01-19T12:00:51.993+0000] {docker.py:429} INFO - 🔎 Recherche: 'Senegal AFCON' (global)...
+[2026-01-19T12:00:53.692+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON referee awards Senegal a corner kick in stop... (score: 8738)
+[2026-01-19T12:00:54.003+0000] {docker.py:429} INFO - ✅ Post envoyé: Egyptian journalists storm out of the Press Confer... (score: 370)
+[2026-01-19T12:00:54.233+0000] {docker.py:429} INFO - ✅ Post envoyé: A DR Congo fan stood for 90+ minutes during the AF... (score: 11693)
+[2026-01-19T12:00:55.022+0000] {docker.py:429} INFO - ✅ Post envoyé: Nico Jackson and Mamadou Sarr win AFCON with Seneg... (score: 1254)
+[2026-01-19T12:00:55.633+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal win AFCON, the players set to return this ... (score: 434)
+[2026-01-19T12:00:55.739+0000] {docker.py:429} INFO - ✅ Post envoyé: Diouf wins AFCON with Senegal!... (score: 538)
+[2026-01-19T12:00:55.852+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal reach the AFCON final!... (score: 514)
+[2026-01-19T12:00:55.952+0000] {docker.py:429} INFO - ✅ Post envoyé: SENEGAL ARE AFCON CHAMPIONS 🎊🎊🎊🎊... (score: 443)
+[2026-01-19T12:00:56.061+0000] {docker.py:429} INFO - ✅ Post envoyé: [Independent] Senegal face punishment after ‘shame... (score: 105)
+[2026-01-19T12:00:56.167+0000] {docker.py:429} INFO - ✅ Post envoyé: Mo's Egypt take on Sadio's Senegal today at 5PM GM... (score: 474)
+[2026-01-19T12:00:56.473+0000] {docker.py:429} INFO - ✅ Post envoyé: This man’s leadership won the AFCON 🏆 for Senegal ... (score: 185)
+[2026-01-19T12:00:56.784+0000] {docker.py:429} INFO - ✅ Post envoyé: SENEGAL WINS AFCON!!! 🇸🇳... (score: 327)
+[2026-01-19T12:00:56.895+0000] {docker.py:429} INFO - ✅ Post envoyé: President Bassirou Diomaye Faye Declares Monday a ... (score: 423)
+[2026-01-19T12:00:57.099+0000] {docker.py:429} INFO - ✅ Post envoyé: Tottenham midfielder Pape Matar Sarr was taken to ... (score: 135)
+[2026-01-19T12:00:57.206+0000] {docker.py:429} INFO - ✅ Post envoyé: Ishowspeed is called a "black cat" by Moroccan fan... (score: 54)
+[2026-01-19T12:00:57.315+0000] {docker.py:429} INFO - ✅ Post envoyé: A DR Congo fan stood for 90+ minutes during the AF... (score: 426)
+[2026-01-19T12:00:57.521+0000] {docker.py:429} INFO - ✅ Post envoyé: Seeing Senegal do well in Afcon... (score: 304)
+[2026-01-19T12:00:57.727+0000] {docker.py:429} INFO - ✅ Post envoyé: A laser was spotted being pointed at Senegal goalk... (score: 91)
+[2026-01-19T12:00:57.833+0000] {docker.py:429} INFO - ✅ Post envoyé: Tonight’s AFCON Final [Senegal vs Morocca] ~ Drop ... (score: 1)
+[2026-01-19T12:00:57.962+0000] {docker.py:429} INFO - ✅ Post envoyé: Where Can i Find Stream Senegal vs Morocco 2026 Af... (score: 1)
+[2026-01-19T12:00:58.170+0000] {docker.py:429} INFO - ✅ Post envoyé: From an Algerian's eyes, reaction to the AFCON aft... (score: 0)
+[2026-01-19T12:00:58.286+0000] {docker.py:429} INFO - ✅ Post envoyé: Following Air Senegal post looking for the fan res... (score: 100)
+[2026-01-19T12:00:58.381+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON Final: Senegal 🇸🇳 vs Morocco 🇲🇦, this is wha... (score: 47)
+[2026-01-19T12:00:58.496+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal crowned AFCON champions 🇸🇳🏆 — deserved win... (score: 5)
+[2026-01-19T12:00:58.614+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025 Final: Senegal vs Morocco — more than 1... (score: 25)
+[2026-01-19T12:00:58.711+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal and Jakobs are AFCON winners. Jakobs only ... (score: 51)
+[2026-01-19T12:00:58.821+0000] {docker.py:429} INFO - ✅ Post envoyé: Honest question: During AFCON, I noticed Senegal h... (score: 22)
+[2026-01-19T12:00:58.920+0000] {docker.py:429} INFO - → 50 posts trouvés
+[2026-01-19T12:01:01.917+0000] {docker.py:429} INFO - 🔎 Recherche: 'Nigeria AFCON' (global)...
+[2026-01-19T12:01:02.797+0000] {docker.py:429} INFO - ✅ Post envoyé: Algerian Fans Tear Moroccan Banknotes After Disapp... (score: 121)
+[2026-01-19T12:01:03.005+0000] {docker.py:429} INFO - ✅ Post envoyé: Thank you Nigeria I was rooting for you... (score: 0)
+[2026-01-19T12:01:03.112+0000] {docker.py:429} INFO - ✅ Post envoyé: I wan cry. We seriously need to do better at AFCON... (score: 7)
+[2026-01-19T12:01:03.222+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria 🇳🇬 Making every team look bad... (score: 3)
+[2026-01-19T12:01:03.341+0000] {docker.py:429} INFO - ✅ Post envoyé: [Premium Times Nigeria] For the first time in AFCO... (score: 1837)
+[2026-01-19T12:01:03.445+0000] {docker.py:429} INFO - ✅ Post envoyé: Fights break out between journalists at the mixed ... (score: 283)
+[2026-01-19T12:01:03.852+0000] {docker.py:429} INFO - ✅ Post envoyé: A fan brought out a DR Congo flag during Nigeria v... (score: 481)
+[2026-01-19T12:01:03.968+0000] {docker.py:429} INFO - ✅ Post envoyé: Marrakech stadium security prevented a pitch invas... (score: 108)
+[2026-01-19T12:01:04.179+0000] {docker.py:429} INFO - ✅ Post envoyé: Victor Osimhem threatens to leave AFCON camp and r... (score: 1917)
+[2026-01-19T12:01:04.583+0000] {docker.py:429} INFO - ✅ Post envoyé: Algerian Fans Tear Moroccan Banknotes After Disapp... (score: 24)
+[2026-01-19T12:01:04.687+0000] {docker.py:429} INFO - ✅ Post envoyé: Adams Akor goal to put Nigeria 2-0 up against Alge... (score: 110)
+[2026-01-19T12:01:04.796+0000] {docker.py:429} INFO - ✅ Post envoyé: [AFCON] Osimhen has asked to be subbed off in an a... (score: 42)
+[2026-01-19T12:01:04.915+0000] {docker.py:429} INFO - ✅ Post envoyé: Iwobi and Lookman fire Nigeria into 3rd place at A... (score: 87)
+[2026-01-19T12:01:05.224+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON update Nigeria 4 Mozambique 0... (score: 105)
+[2026-01-19T12:01:05.336+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria beat Zaire now DR Congo in the 1994 AFCON ... (score: 117)
+[2026-01-19T12:01:05.438+0000] {docker.py:429} INFO - ✅ Post envoyé: Algerian FA files official complaints to CAF and F... (score: 11)
+[2026-01-19T12:01:05.550+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria defeat Tunisia 3-2 and qualify for the AFC... (score: 75)
+[2026-01-19T12:01:05.679+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2025: Super Eagles boss reveals three key la... (score: 13)
+[2026-01-19T12:01:05.787+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria is out of AFCon.... (score: 41)
+[2026-01-19T12:01:05.882+0000] {docker.py:429} INFO - ✅ Post envoyé: Osimhen's Nigeria have advanced to the round of 16... (score: 37)
+[2026-01-19T12:01:05.990+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria vs Tunisia AFCON Tickets... (score: 3)
+[2026-01-19T12:01:06.104+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria Vs Algerian (AFCON 25/26)... (score: 7)
+[2026-01-19T12:01:06.206+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria will face Mozambique in the round of 16 of... (score: 29)
+[2026-01-19T12:01:06.325+0000] {docker.py:429} INFO - ✅ Post envoyé: Akinsanmiro: "I was very surprised to be called up... (score: 73)
+[2026-01-19T12:01:06.429+0000] {docker.py:429} INFO - ✅ Post envoyé: Moroccan vs Nigeria afcon tickets for sale... (score: 1)
+[2026-01-19T12:01:06.535+0000] {docker.py:429} INFO - ✅ Post envoyé: JE CHERCHE 1 BILLET POUR LES DEMIES FINALES MAROC-... (score: 3)
+[2026-01-19T12:01:06.650+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON - Nigeria vs Uganda... (score: 23)
+[2026-01-19T12:01:06.766+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON: Nigeria vs Tanzania... (score: 12)
+[2026-01-19T12:01:06.868+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria advances in AFCON... (score: 44)
+[2026-01-19T12:01:06.970+0000] {docker.py:429} INFO - ✅ Post envoyé: Looking to buy tickets for Morocco 🇲🇦 vs Nigeria 🇳... (score: 5)
+[2026-01-19T12:01:07.076+0000] {docker.py:429} INFO - ✅ Post envoyé: Looking to buy tickets for Morocco 🇲🇦 vs Nigeria 🇳... (score: 11)
+[2026-01-19T12:01:07.183+0000] {docker.py:429} INFO - ✅ Post envoyé: Chérif Oudjani goal against Nigeria in the 1990 AF... (score: 54)
+[2026-01-19T12:01:07.294+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria will face Mozambique in the round of 16 of... (score: 23)
+[2026-01-19T12:01:07.401+0000] {docker.py:429} INFO - ✅ Post envoyé: The only two teams to post a 100% record in the AF... (score: 19)
+[2026-01-19T12:01:07.512+0000] {docker.py:429} INFO - ✅ Post envoyé: Today's MotD: Uganda vs Nigeria (AFCON, Morocco)... (score: 18)
+[2026-01-19T12:01:07.620+0000] {docker.py:429} INFO - ✅ Post envoyé: Looking to buy tickets for Morocco 🇲🇦 vs Nigeria 🇳... (score: 9)
+[2026-01-19T12:01:07.724+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria's Path to Our 4th AFCON... (score: 6)
+[2026-01-19T12:01:07.830+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria vs Tunisia Preview: Prediction, Team News,... (score: 3)
+[2026-01-19T12:01:07.941+0000] {docker.py:429} INFO - ✅ Post envoyé: Algeria vs Nigeria: AFCON Giants Clash in High-Sta... (score: 5)
+[2026-01-19T12:01:08.056+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON: Wilfred Ndidi shouldn't have taken the resp... (score: 5)
+[2026-01-19T12:01:08.175+0000] {docker.py:429} INFO - → 50 posts trouvés
+[2026-01-19T12:01:11.151+0000] {docker.py:429} INFO - 📍 PHASE 2: Scraping des subreddits
+----------------------------------------------------------------------
+🔍 Scraping r/soccer/hot (limit=50)...
+[2026-01-19T12:01:12.076+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigerian keepers message to Morrocans... (score: 4333)
+[2026-01-19T12:01:12.183+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegalese player being chased by Mororrocan ball ... (score: 2431)
+[2026-01-19T12:01:12.299+0000] {docker.py:429} INFO - ✅ Post envoyé: Moroccan ball boys attempting to steal the towel o... (score: 8961)
+[2026-01-19T12:01:12.431+0000] {docker.py:429} INFO - ✅ Post envoyé: Moroccan player Saibari trying to block Senegal`s ... (score: 5650)
+[2026-01-19T12:01:12.738+0000] {docker.py:429} INFO - ✅ Post envoyé: Edouard Mendy penalty save against Morocco 90+13'... (score: 10908)
+[2026-01-19T12:01:12.941+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal [1] - 0 Morocco - Pape Gueye 94'... (score: 5994)
+[2026-01-19T12:01:13.048+0000] {docker.py:429} INFO - ✅ Post envoyé: Ibrahim Mbaye (Senegal) posted on his Snapchat sto... (score: 3344)
+[2026-01-19T12:01:13.260+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal players refuse to continue playing after M... (score: 3926)
+[2026-01-19T12:01:13.367+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal full-back Ismail Jakobs has claimed it's n... (score: 307)
+[2026-01-19T12:01:13.573+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal players leaving the field after a controve... (score: 3306)
+[2026-01-19T12:01:13.678+0000] {docker.py:429} INFO - ✅ Post envoyé: Alternate angles of Bono great save vs Senegal... (score: 2648)
+[2026-01-19T12:01:13.999+0000] {docker.py:429} INFO - ✅ Post envoyé: Sadio Mané Urges Senegal Teammates Back Onto the P... (score: 2375)
+[2026-01-19T12:01:14.205+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal fans clash with security staff before Brah... (score: 1501)
+[2026-01-19T12:01:14.312+0000] {docker.py:429} INFO - ✅ Post envoyé: [Sky] Morocco head coach Walid Regragui described ... (score: 164)
+[2026-01-19T12:01:14.824+0000] {docker.py:429} INFO - ✅ Post envoyé: [Sport TV Portugal] This Morocco fan’s reaction af... (score: 94)
+[2026-01-19T12:01:14.932+0000] {docker.py:429} INFO - ✅ Post envoyé: Trent’s reaction to Brahim’s penalty miss against ... (score: 83)
+[2026-01-19T12:01:15.040+0000] {docker.py:429} INFO - ✅ Post envoyé: Post Match Thread: Senegal 1-0 Morocco... (score: 654)
+[2026-01-19T12:01:15.145+0000] {docker.py:429} INFO - ✅ Post envoyé: Cherif Ndiaye miss against Morocco 112'... (score: 603)
+[2026-01-19T12:01:15.250+0000] {docker.py:429} INFO - ✅ Post envoyé: [BBC Sport] Moroccan journalists walk out of the c... (score: 44)
+[2026-01-19T12:01:15.364+0000] {docker.py:429} INFO - ✅ Post envoyé: [Middle East Eye] Rare protest held at Manchester ... (score: 1961)
+[2026-01-19T12:01:15.464+0000] {docker.py:429} INFO - → 32 posts CAN trouvés
+[2026-01-19T12:01:17.464+0000] {docker.py:429} INFO - 🔍 Scraping r/soccer/new (limit=50)...
+[2026-01-19T12:01:18.255+0000] {docker.py:429} INFO - ✅ Post envoyé: Everton's stadium was lit up green and yellow to c... (score: 21)
+[2026-01-19T12:01:18.364+0000] {docker.py:429} INFO - ✅ Post envoyé: [Romain Molina] The CAF Disciplinary Commission is... (score: 8)
+[2026-01-19T12:01:18.470+0000] {docker.py:429} INFO - ✅ Post envoyé: [Guardian] Senegal capital Dakar erupts in celebra... (score: 21)
+[2026-01-19T12:01:18.686+0000] {docker.py:429} INFO - ✅ Post envoyé: The king's brother refusing to be the one giving t... (score: 34)
+[2026-01-19T12:01:18.798+0000] {docker.py:429} INFO - ✅ Post envoyé: FIFA’s Gianni Infantino calls for action against S... (score: 7)
+[2026-01-19T12:01:18.906+0000] {docker.py:429} INFO - ✅ Post envoyé: CAF condemns unacceptable behaviour of players and... (score: 12)
+[2026-01-19T12:01:19.416+0000] {docker.py:429} INFO - ✅ Post envoyé: Could we connect the lost bid of Morocco for the 2... (score: 10)
+[2026-01-19T12:01:19.923+0000] {docker.py:429} INFO - ✅ Post envoyé: 'Shameful' and 'terrible look' - the chaos that ma... (score: 31)
+[2026-01-19T12:01:20.547+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal erupts in joy after dramatic win to take t... (score: 180)
+[2026-01-19T12:01:20.646+0000] {docker.py:429} INFO - → 23 posts CAN trouvés
+[2026-01-19T12:01:22.644+0000] {docker.py:429} INFO - 🔍 Scraping r/football/hot (limit=50)...
+[2026-01-19T12:01:23.566+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco are embarrassing and shouldn't host a tour... (score: 461)
+[2026-01-19T12:01:23.672+0000] {docker.py:429} INFO - ✅ Post envoyé: The African Cup of Nations final mayhem.... (score: 198)
+[2026-01-19T12:01:23.778+0000] {docker.py:429} INFO - ✅ Post envoyé: What a Game Morocco vs Senegal AFCON Final... (score: 37)
+[2026-01-19T12:01:23.885+0000] {docker.py:429} INFO - ✅ Post envoyé: Seeing the reaction from the AFCON final tells me ... (score: 0)
+[2026-01-19T12:01:23.999+0000] {docker.py:429} INFO - ✅ Post envoyé: Afcon.. Embarrassing, shame on senagal... (score: 0)
+[2026-01-19T12:01:24.111+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco beats Nigeria on penalties to reach Africa... (score: 75)
+[2026-01-19T12:01:24.212+0000] {docker.py:429} INFO - → 6 posts CAN trouvés
+[2026-01-19T12:01:26.209+0000] {docker.py:429} INFO - 🔍 Scraping r/football/new (limit=50)...
+[2026-01-19T12:01:27.584+0000] {docker.py:429} INFO - → 6 posts CAN trouvés
+[2026-01-19T12:01:29.585+0000] {docker.py:429} INFO - 🔍 Scraping r/sports/hot (limit=50)...
+[2026-01-19T12:01:30.406+0000] {docker.py:429} INFO - ✅ Post envoyé: Chaos at Africa Cup of Nations final after Senegal... (score: 307)
+[2026-01-19T12:01:30.502+0000] {docker.py:429} INFO - → 1 posts CAN trouvés
+[2026-01-19T12:01:32.508+0000] {docker.py:429} INFO - 🔍 Scraping r/sports/new (limit=50)...
+[2026-01-19T12:01:33.459+0000] {docker.py:429} INFO - → 1 posts CAN trouvés
+[2026-01-19T12:01:35.459+0000] {docker.py:429} INFO - 🔍 Scraping r/worldcup/hot (limit=50)...
+[2026-01-19T12:01:36.405+0000] {docker.py:429} INFO - ✅ Post envoyé: Moroccan player Saibari trying to block Senegal`s ... (score: 160)
+[2026-01-19T12:01:36.515+0000] {docker.py:429} INFO - ✅ Post envoyé: Achraf Hakimi (Morocco) stealing Mendy’s (Senegal)... (score: 20)
+[2026-01-19T12:01:36.623+0000] {docker.py:429} INFO - ✅ Post envoyé: World Champions paired with CONCACAF sides in the ... (score: 16)
+[2026-01-19T12:01:36.730+0000] {docker.py:429} INFO - ✅ Post envoyé: World Cup qualification shines as new objective fo... (score: 38)
+[2026-01-19T12:01:36.946+0000] {docker.py:429} INFO - ✅ Post envoyé: Nigeria files World Cup complaint to FIFA over Con... (score: 169)
+[2026-01-19T12:01:37.057+0000] {docker.py:429} INFO - ✅ Post envoyé: World Cup countries Senegal and Côte d’Ivoire amon... (score: 205)
+[2026-01-19T12:01:37.155+0000] {docker.py:429} INFO - → 7 posts CAN trouvés
+[2026-01-19T12:01:39.157+0000] {docker.py:429} INFO - 🔍 Scraping r/worldcup/new (limit=50)...
+[2026-01-19T12:01:41.099+0000] {docker.py:429} INFO - → 7 posts CAN trouvés
+[2026-01-19T12:01:43.103+0000] {docker.py:429} INFO - 🔍 Scraping r/Africa/hot (limit=50)...
+[2026-01-19T12:01:44.280+0000] {docker.py:429} INFO - ✅ Post envoyé: Cape Town, South Africa... (score: 88)
+[2026-01-19T12:01:44.384+0000] {docker.py:429} INFO - ✅ Post envoyé: Towelgate... (score: 23)
+[2026-01-19T12:01:44.513+0000] {docker.py:429} INFO - ✅ Post envoyé: 🇦🇴🇨🇩 In the Mbanza Kongo region, capital of the fo... (score: 145)
+[2026-01-19T12:01:44.624+0000] {docker.py:429} INFO - ✅ Post envoyé: Why Algerians have so much hate towards Moroccans?... (score: 4)
+[2026-01-19T12:01:44.770+0000] {docker.py:429} INFO - ✅ Post envoyé: What’s your opinion about this?... (score: 30)
+[2026-01-19T12:01:44.862+0000] {docker.py:429} INFO - ✅ Post envoyé: i miss Kenya/Africa... (score: 39)
+[2026-01-19T12:01:44.969+0000] {docker.py:429} INFO - ✅ Post envoyé: How popular is Afrobeats in the country you live i... (score: 6)
+[2026-01-19T12:01:45.084+0000] {docker.py:429} INFO - ✅ Post envoyé: Origins of the Swahili - Dispelling colonial-era E... (score: 196)
+[2026-01-19T12:01:45.190+0000] {docker.py:429} INFO - ✅ Post envoyé: Saudi Arabia to forge military pact with Egypt and... (score: 94)
+[2026-01-19T12:01:45.320+0000] {docker.py:429} INFO - ✅ Post envoyé: Guys who live in the west or in a country outside ... (score: 36)
+[2026-01-19T12:01:45.409+0000] {docker.py:429} INFO - ✅ Post envoyé: The indigenous Mtepe ship technology of Swahili, E... (score: 158)
+[2026-01-19T12:01:45.524+0000] {docker.py:429} INFO - ✅ Post envoyé: Death of Chimamanda Ngozi Adichie’s son prompts ca... (score: 29)
+[2026-01-19T12:01:45.635+0000] {docker.py:429} INFO - ✅ Post envoyé: The Nigerian Republic in a Ditch: The Rise and Tra... (score: 3)
+[2026-01-19T12:01:45.738+0000] {docker.py:429} INFO - ✅ Post envoyé: When The Swahili and Somali people visited Guangzh... (score: 301)
+[2026-01-19T12:01:45.853+0000] {docker.py:429} INFO - ✅ Post envoyé: Startup Funding In Africa In 2025... (score: 19)
+[2026-01-19T12:01:45.962+0000] {docker.py:429} INFO - ✅ Post envoyé: Some nice pictures I took in the Atlas Mountains,A... (score: 71)
+[2026-01-19T12:01:46.080+0000] {docker.py:429} INFO - ✅ Post envoyé: South Africa’s AGOA uncertainty still looms... (score: 5)
+[2026-01-19T12:01:46.184+0000] {docker.py:429} INFO - ✅ Post envoyé: Cairo Takes Military Step in Sudan War Ahead of Ha... (score: 92)
+[2026-01-19T12:01:46.289+0000] {docker.py:429} INFO - ✅ Post envoyé: Over 500 million illicit arms flood West Africa, 4... (score: 46)
+[2026-01-19T12:01:46.399+0000] {docker.py:429} INFO - ✅ Post envoyé: Seydou Keïta’s illuminating portraits of life in 2... (score: 5)
+[2026-01-19T12:01:46.500+0000] {docker.py:429} INFO - → 20 posts CAN trouvés
+[2026-01-19T12:01:48.502+0000] {docker.py:429} INFO - 🔍 Scraping r/Africa/new (limit=50)...
+[2026-01-19T12:01:51.567+0000] {docker.py:429} INFO - ✅ Post envoyé: Somalia cancels all agreements with UAE over alleg... (score: 44)
+[2026-01-19T12:01:51.670+0000] {docker.py:429} INFO - → 21 posts CAN trouvés
+[2026-01-19T12:01:53.674+0000] {docker.py:429} INFO - 🔍 Scraping r/africapics/hot (limit=50)...
+[2026-01-19T12:01:53.975+0000] {docker.py:429} INFO - → 0 posts CAN trouvés
+[2026-01-19T12:01:55.976+0000] {docker.py:429} INFO - 🔍 Scraping r/africapics/new (limit=50)...
+[2026-01-19T12:01:56.323+0000] {docker.py:429} INFO - → 0 posts CAN trouvés
+[2026-01-19T12:01:58.326+0000] {docker.py:429} INFO - 🔍 Scraping r/African/hot (limit=50)...
+[2026-01-19T12:01:58.604+0000] {docker.py:429} INFO - ❌ Erreur scraping r/African: 404 Client Error: Not Found for url: https://www.reddit.com/r/African/hot.json?limit=50
+[2026-01-19T12:02:00.598+0000] {docker.py:429} INFO - 🔍 Scraping r/African/new (limit=50)...
+[2026-01-19T12:02:00.778+0000] {docker.py:429} INFO - ❌ Erreur scraping r/African: 404 Client Error: Not Found for url: https://www.reddit.com/r/African/new.json?limit=50
+[2026-01-19T12:02:02.779+0000] {docker.py:429} INFO - 🔍 Scraping r/Morocco/hot (limit=50)...
+[2026-01-19T12:02:03.765+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON after-match related discussion megathread... (score: 1)
+[2026-01-19T12:02:03.868+0000] {docker.py:429} INFO - ✅ Post envoyé: Message from a Tunisian about Afcon... (score: 144)
+[2026-01-19T12:02:04.007+0000] {docker.py:429} INFO - ✅ Post envoyé: From an algerian 🇩🇿❤️🇲🇦... (score: 54)
+[2026-01-19T12:02:04.115+0000] {docker.py:429} INFO - ✅ Post envoyé: Speed gifted a blind kid in Morocco a new iPhone a... (score: 24)
+[2026-01-19T12:02:04.225+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal should have been disqualified... (score: 154)
+[2026-01-19T12:02:04.338+0000] {docker.py:429} INFO - ✅ Post envoyé: Hatred and Jealousy is insane in this AFCON... (score: 63)
+[2026-01-19T12:02:04.451+0000] {docker.py:429} INFO - ✅ Post envoyé: Congrats to our Moroccan brothers 🇹🇳🤝🇲🇦 ❤️ (ignore... (score: 12)
+[2026-01-19T12:02:04.558+0000] {docker.py:429} INFO - ✅ Post envoyé: Arabs/Fans in the Arab cup where much better and h... (score: 78)
+[2026-01-19T12:02:04.665+0000] {docker.py:429} INFO - ✅ Post envoyé: Been thinking about the 3 Reasons why Morocco lost... (score: 16)
+[2026-01-19T12:02:04.779+0000] {docker.py:429} INFO - ✅ Post envoyé: Morrocans should still be proud of a fantastic gam... (score: 86)
+[2026-01-19T12:02:04.897+0000] {docker.py:429} INFO - ✅ Post envoyé: Why some africans countries hate Morocco? Here one... (score: 13)
+[2026-01-19T12:02:05.001+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco Hosts a Top-Tier AFCON and Gets Nothing bu... (score: 22)
+[2026-01-19T12:02:05.108+0000] {docker.py:429} INFO - ✅ Post envoyé: Last Afcon on Moroccan Soil.... (score: 33)
+[2026-01-19T12:02:05.220+0000] {docker.py:429} INFO - ✅ Post envoyé: Senegal wanna forfeit the final??... (score: 71)
+[2026-01-19T12:02:05.329+0000] {docker.py:429} INFO - ✅ Post envoyé: All Senegal players, along with the coach, should ... (score: 63)
+[2026-01-19T12:02:05.437+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco’s false allegations... (score: 49)
+[2026-01-19T12:02:05.542+0000] {docker.py:429} INFO - ✅ Post envoyé: We organised a great AFCON, and now most of people... (score: 27)
+[2026-01-19T12:02:05.656+0000] {docker.py:429} INFO - ✅ Post envoyé: Tunisian here. Congratulations on an incredible AF... (score: 33)
+[2026-01-19T12:02:05.769+0000] {docker.py:429} INFO - ✅ Post envoyé: Hey, runner up spot is still great. Don't let anyo... (score: 42)
+[2026-01-19T12:02:05.872+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON 2026: Lessons Beyond the Field... (score: 22)
+[2026-01-19T12:02:06.001+0000] {docker.py:429} INFO - ✅ Post envoyé: Zlij simulation... (score: 9)
+[2026-01-19T12:02:06.098+0000] {docker.py:429} INFO - ✅ Post envoyé: Is it just me? Today's loss... (score: 22)
+[2026-01-19T12:02:06.207+0000] {docker.py:429} INFO - ✅ Post envoyé: Everyone seems to hate Morocco, and we need to fin... (score: 7)
+[2026-01-19T12:02:06.314+0000] {docker.py:429} INFO - ✅ Post envoyé: Don't feel miserable because we lost... (score: 18)
+[2026-01-19T12:02:06.419+0000] {docker.py:429} INFO - ✅ Post envoyé: Was hosting AFCON actually worth it?... (score: 4)
+[2026-01-19T12:02:06.529+0000] {docker.py:429} INFO - ✅ Post envoyé: This is Bs!! L Senegal... (score: 24)
+[2026-01-19T12:02:06.645+0000] {docker.py:429} INFO - ✅ Post envoyé: It is what it is. Terrible outcome, we move on.... (score: 17)
+[2026-01-19T12:02:06.739+0000] {docker.py:429} INFO - → 27 posts CAN trouvés
+[2026-01-19T12:02:08.749+0000] {docker.py:429} INFO - 🔍 Scraping r/Morocco/new (limit=50)...
+[2026-01-19T12:02:09.817+0000] {docker.py:429} INFO - ✅ Post envoyé: Dear Moroccan, help me Navigation in Morocco one w... (score: 1)
+[2026-01-19T12:02:10.829+0000] {docker.py:429} INFO - ✅ Post envoyé: DNA father test does it exist in morocco?... (score: 3)
+[2026-01-19T12:02:10.937+0000] {docker.py:429} INFO - ✅ Post envoyé: Our loss was something Unusual and Suspicious. Her... (score: 0)
+[2026-01-19T12:02:11.148+0000] {docker.py:429} INFO - ✅ Post envoyé: Go back and see the penalty again... (score: 0)
+[2026-01-19T12:02:11.254+0000] {docker.py:429} INFO - ✅ Post envoyé: Now that the afcon is over, would you guys say afc... (score: 6)
+[2026-01-19T12:02:11.467+0000] {docker.py:429} INFO - ✅ Post envoyé: After cooling down, what do you guys think about t... (score: 4)
+[2026-01-19T12:02:11.788+0000] {docker.py:429} INFO - ✅ Post envoyé: help me find a girl (la comédie café - Rabat)... (score: 6)
+[2026-01-19T12:02:11.888+0000] {docker.py:429} INFO - ✅ Post envoyé: We got to stop hosting Afcon... (score: 1)
+[2026-01-19T12:02:12.100+0000] {docker.py:429} INFO - ✅ Post envoyé: What do you think about Khawa khawa... (score: 6)
+[2026-01-19T12:02:12.213+0000] {docker.py:429} INFO - ✅ Post envoyé: Walid Regragui should be praised not criticised... (score: 1)
+[2026-01-19T12:02:12.331+0000] {docker.py:429} INFO - ✅ Post envoyé: AFCON Ends, Morocco Continues... (score: 14)
+[2026-01-19T12:02:12.533+0000] {docker.py:429} INFO - → 27 posts CAN trouvés
+[2026-01-19T12:02:14.538+0000] {docker.py:429} INFO - 📍 PHASE 3: Top posts du mois
+----------------------------------------------------------------------
+🔍 Scraping r/soccer/top (limit=50)...
+[2026-01-19T12:02:15.696+0000] {docker.py:429} INFO - ✅ Post envoyé: Zinedine Zidane at AFCON watching his son Luca Zid... (score: 10925)
+[2026-01-19T12:02:15.901+0000] {docker.py:429} INFO - ✅ Post envoyé: A fan in the Senegal vs Botswana game (no idea for... (score: 10515)
+[2026-01-19T12:02:16.108+0000] {docker.py:429} INFO - ✅ Post envoyé: Michel Kuka Mboladinga, a DR Congo supporter, prev... (score: 8499)
+[2026-01-19T12:02:16.310+0000] {docker.py:429} INFO - → 8 posts CAN trouvés
+[2026-01-19T12:02:18.324+0000] {docker.py:429} INFO - 🔍 Scraping r/Africa/top (limit=50)...
+[2026-01-19T12:02:19.581+0000] {docker.py:429} INFO - ✅ Post envoyé: West Africa’s Megacity…Lagos, Nigeria.... (score: 918)
+[2026-01-19T12:02:19.694+0000] {docker.py:429} INFO - ✅ Post envoyé: Medieval Towns of Mali... (score: 715)
+[2026-01-19T12:02:19.803+0000] {docker.py:429} INFO - ✅ Post envoyé: African Diaspora Sex Tourism (LONG READ)... (score: 669)
+[2026-01-19T12:02:19.927+0000] {docker.py:429} INFO - ✅ Post envoyé: Class act by Nigerian player Akor Adams 🇳🇬🤝🏿🇨🇩... (score: 582)
+[2026-01-19T12:02:20.042+0000] {docker.py:429} INFO - ✅ Post envoyé: Algeria Government Declares French Colonisation A ... (score: 568)
+[2026-01-19T12:02:20.192+0000] {docker.py:429} INFO - ✅ Post envoyé: Mogadishu Somalia 🇸🇴... (score: 537)
+[2026-01-19T12:02:20.300+0000] {docker.py:429} INFO - ✅ Post envoyé: Mali and Burkina Faso impose travel ban on US citi... (score: 456)
+[2026-01-19T12:02:20.407+0000] {docker.py:429} INFO - ✅ Post envoyé: Angolans didn’t get to share that sweet border wit... (score: 334)
+[2026-01-19T12:02:20.521+0000] {docker.py:429} INFO - ✅ Post envoyé: Why do SOME North Africans claim not to be African... (score: 327)
+[2026-01-19T12:02:20.731+0000] {docker.py:429} INFO - ✅ Post envoyé: Burkina Faso foils plot to assassinate Capt Ibrahi... (score: 294)
+[2026-01-19T12:02:20.857+0000] {docker.py:429} INFO - ✅ Post envoyé: During the U.S intervention in Somalia in the earl... (score: 271)
+[2026-01-19T12:02:20.955+0000] {docker.py:429} INFO - ✅ Post envoyé: Eyo Festival of Lagos Nigeria, Dec 27, 2025... (score: 244)
+[2026-01-19T12:02:21.067+0000] {docker.py:429} INFO - ✅ Post envoyé: Explain why Somaliland is a big deal?... (score: 226)
+[2026-01-19T12:02:21.180+0000] {docker.py:429} INFO - ✅ Post envoyé: Israel becomes first country to recognize Somalila... (score: 206)
+[2026-01-19T12:02:21.286+0000] {docker.py:429} INFO - ✅ Post envoyé: Burkina Faso, Mali and Niger Launch NATO-Like Mili... (score: 202)
+[2026-01-19T12:02:21.496+0000] {docker.py:429} INFO - ✅ Post envoyé: UAE recognizes Somaliland Passports but blocks Vis... (score: 196)
+[2026-01-19T12:02:21.616+0000] {docker.py:429} INFO - ✅ Post envoyé: US launches 'powerful strikes' against Islamic Sta... (score: 167)
+[2026-01-19T12:02:21.713+0000] {docker.py:429} INFO - ✅ Post envoyé: Le grand Mali... (score: 159)
+[2026-01-19T12:02:21.912+0000] {docker.py:429} INFO - → 21 posts CAN trouvés
+[2026-01-19T12:02:23.914+0000] {docker.py:429} INFO - 🔍 Scraping r/Morocco/top (limit=50)...
+[2026-01-19T12:02:24.976+0000] {docker.py:429} INFO - ✅ Post envoyé: Kicked out from this place because two girls... (score: 1584)
+[2026-01-19T12:02:25.086+0000] {docker.py:429} INFO - ✅ Post envoyé: Handmade map of Morocco... (score: 746)
+[2026-01-19T12:02:25.187+0000] {docker.py:429} INFO - ✅ Post envoyé: Wld l malik m9mr 3la l mghreb rab7... (score: 492)
+[2026-01-19T12:02:25.293+0000] {docker.py:429} INFO - ✅ Post envoyé: Morocco is beautiful ❄️🥶🏔️... (score: 452)
+[2026-01-19T12:02:25.405+0000] {docker.py:429} INFO - ✅ Post envoyé: Sick of foreigners looking to retire in Morocco... (score: 404)
+[2026-01-19T12:02:25.522+0000] {docker.py:429} INFO - ✅ Post envoyé: I made map of Morocco in English Arabic and Tamazi... (score: 291)
+[2026-01-19T12:02:25.635+0000] {docker.py:429} INFO - ✅ Post envoyé: All the bad Google reviews for Milk+Honey Casablan... (score: 293)
+[2026-01-19T12:02:25.637+0000] {docker.py:429} INFO - 
+[2026-01-19T12:02:25.744+0000] {docker.py:429} INFO - ✅ Post envoyé: I moved to Morocco two months ago and i already re... (score: 259)
+[2026-01-19T12:02:25.868+0000] {docker.py:429} INFO - ✅ Post envoyé: weird name for a café lol... (score: 237)
+[2026-01-19T12:02:25.971+0000] {docker.py:429} INFO - ✅ Post envoyé: After visiting Malaysia, I feel more proud of Moro... (score: 233)
+[2026-01-19T12:02:26.080+0000] {docker.py:429} INFO - ✅ Post envoyé: The best player in Africa's history: this is the b... (score: 209)
+[2026-01-19T12:02:26.183+0000] {docker.py:429} INFO - ✅ Post envoyé: Orange Morocco has exceeded all legal limits in re... (score: 210)
+[2026-01-19T12:02:26.292+0000] {docker.py:429} INFO - ✅ Post envoyé: Took this shot at Tangier Stadium during the Seneg... (score: 189)
+[2026-01-19T12:02:26.394+0000] {docker.py:429} INFO - → 13 posts CAN trouvés
+[2026-01-19T12:02:28.399+0000] {docker.py:429} INFO - 💬 PHASE 4: Récupération des commentaires
+----------------------------------------------------------------------
+[2026-01-19T12:02:28.403+0000] {docker.py:429} INFO - 📝 Commentaires pour: A DR Congo fan stood for 90+ minutes during the AF...
+[2026-01-19T12:02:29.041+0000] {docker.py:429} INFO - → 9 commentaires récupérés
+[2026-01-19T12:02:31.038+0000] {docker.py:429} INFO - 📝 Commentaires pour: A DR Congo fan stood for 90+ minutes during the AF...
+[2026-01-19T12:02:31.446+0000] {docker.py:429} INFO - → 9 commentaires récupérés
+[2026-01-19T12:02:33.449+0000] {docker.py:429} INFO - 📝 Commentaires pour: [Official] Senegal crowned AFCON champions after 1...
+[2026-01-19T12:02:34.012+0000] {docker.py:429} INFO - → 14 commentaires récupérés
+[2026-01-19T12:02:36.010+0000] {docker.py:429} INFO - 📝 Commentaires pour: [Official] Senegal crowned AFCON champions after 1...
+[2026-01-19T12:02:36.462+0000] {docker.py:429} INFO - → 14 commentaires récupérés
+[2026-01-19T12:02:38.473+0000] {docker.py:429} INFO - 📝 Commentaires pour: [Official] Senegal crowned AFCON champions after 1...
+[2026-01-19T12:02:38.927+0000] {docker.py:429} INFO - → 14 commentaires récupérés
+[2026-01-19T12:02:40.928+0000] {docker.py:429} INFO - 📝 Commentaires pour: [Official] Senegal crowned AFCON champions after 1...
+[2026-01-19T12:02:41.375+0000] {docker.py:429} INFO - → 14 commentaires récupérés
+[2026-01-19T12:02:43.376+0000] {docker.py:429} INFO - 📝 Commentaires pour: Zinedine Zidane at AFCON watching his son Luca Zid...
+[2026-01-19T12:02:43.773+0000] {docker.py:429} INFO - → 8 commentaires récupérés
+[2026-01-19T12:02:45.772+0000] {docker.py:429} INFO - 📝 Commentaires pour: Edouard Mendy penalty save against Morocco 90+13'...
+[2026-01-19T12:02:46.393+0000] {docker.py:429} INFO - → 15 commentaires récupérés
+[2026-01-19T12:02:48.393+0000] {docker.py:429} INFO - 📝 Commentaires pour: Edouard Mendy penalty save against Morocco 90+13'...
+[2026-01-19T12:02:48.866+0000] {docker.py:429} INFO - → 15 commentaires récupérés
+[2026-01-19T12:02:50.866+0000] {docker.py:429} INFO - 📝 Commentaires pour: A fan in the Senegal vs Botswana game (no idea for...
+[2026-01-19T12:02:51.434+0000] {docker.py:429} INFO - → 16 commentaires récupérés
+[2026-01-19T12:02:53.452+0000] {docker.py:429} INFO - ======================================================================
+📊 RAPPORT DE COLLECTE INTENSIVE
+======================================================================
+Posts envoyés:         338
+Commentaires envoyés:  62
+Doublons évités:       198
+Erreurs:               0
+Total unique:          400
+======================================================================
+[2026-01-19T12:02:53.457+0000] {docker.py:429} INFO - ⏸️  Pause de 600s avant prochain cycle...
+[2026-01-19T12:12:19.583+0000] {timeout.py:68} ERROR - Process timed out, PID: 5113
+[2026-01-19T12:12:19.646+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 426, in _run_image_with_mounts
+    for log_chunk in logstream:
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/types/daemon.py", line 29, in __next__
+    return next(self._stream)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 428, in <genexpr>
+    gen = (data for (_, data) in gen)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/utils/socket.py", line 112, in frames_iter_no_tty
+    (stream, n) = next_frame_header(socket)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/utils/socket.py", line 84, in next_frame_header
+    data = read_exactly(socket, 8)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/utils/socket.py", line 69, in read_exactly
+    next_data = read(socket, n - len(data))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/utils/socket.py", line 40, in read
+    poll.poll()
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/timeout.py", line 69, in handle_timeout
+    raise AirflowTaskTimeout(self.error_message)
+airflow.exceptions.AirflowTaskTimeout: Timeout, PID: 5113
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 265, in _raise_for_status
+    response.raise_for_status()
+  File "/home/airflow/.local/lib/python3.11/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 409 Client Error: Conflict for url: http+docker://localhost/v1.51/containers/e7705137b6fda40b2f0e8f4a7503fafef6caf958d0718909cef1199b930361fa?v=False&link=False&force=False
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 428, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 502, in execute
+    return self._run_image()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 376, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/docker/operators/docker.py", line 455, in _run_image_with_mounts
+    self.cli.remove_container(self.container["Id"])
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/container.py", line 1036, in remove_container
+    self._raise_for_status(res)
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/api/client.py", line 267, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 409 Client Error for http+docker://localhost/v1.51/containers/e7705137b6fda40b2f0e8f4a7503fafef6caf958d0718909cef1199b930361fa?v=False&link=False&force=False: Conflict ("cannot remove container "e7705137b6fda40b2f0e8f4a7503fafef6caf958d0718909cef1199b930361fa": container is running: stop the container before removing or force remove")
+[2026-01-19T12:12:19.715+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=reddit_can_complete_pipeline_v2, task_id=scraping_reddit_to_kafka, execution_date=20260119T060000, start_date=20260119T120019, end_date=20260119T121219
+[2026-01-19T12:12:19.760+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 67 for task scraping_reddit_to_kafka (409 Client Error for http+docker://localhost/v1.51/containers/e7705137b6fda40b2f0e8f4a7503fafef6caf958d0718909cef1199b930361fa?v=False&link=False&force=False: Conflict ("cannot remove container "e7705137b6fda40b2f0e8f4a7503fafef6caf958d0718909cef1199b930361fa": container is running: stop the container before removing or force remove"); 5113)
+[2026-01-19T12:12:19.779+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-01-19T12:12:19.846+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

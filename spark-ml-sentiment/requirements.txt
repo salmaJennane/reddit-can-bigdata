@@ -1,0 +1,3 @@
+pyspark==3.5.0
+pymongo==4.6.1
+vaderSentiment==3.3.2

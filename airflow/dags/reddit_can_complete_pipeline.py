@@ -1,13 +1,14 @@
 """
 ========================================================
-AIRFLOW DAG - PIPELINE COMPLET REDDIT CAN 2025
+AIRFLOW DAG - PIPELINE COMPLET REDDIT CAN 2025 + NETWORK
 ========================================================
 Orchestration du pipeline Big Data de bout en bout:
 1. Vérification infrastructure
 2. Scraping Reddit → Kafka (10 min)
 3. Attente traitement Spark Streaming
 4. Analyse ML Sentiment
-5. Validation et rapport
+5. Analyse de Réseau Social ← NOUVEAU
+6. Validation et rapport
 ========================================================
 """
 
@@ -33,7 +34,8 @@ default_args = {
 }
 
 MONGODB_URI = 'mongodb://admin:admin123@mongodb:27017/'
-MIN_POSTS_FOR_ML = 50  # Seuil minimum avant ML
+MIN_POSTS_FOR_ML = 50
+MIN_USERS_FOR_NETWORK = 30  # Seuil minimum pour l'analyse réseau
 
 # ========================================
 # FONCTIONS PYTHON
@@ -44,12 +46,10 @@ def check_infrastructure(**context):
     logging.info("🔍 Vérification de l'infrastructure...")
     
     try:
-        # Vérifier MongoDB
         client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
         client.admin.command('ping')
         logging.info("✅ MongoDB opérationnel")
         client.close()
-        
         return True
     except Exception as e:
         logging.error(f"❌ Infrastructure error: {e}")
@@ -63,19 +63,22 @@ def get_pipeline_stats(**context):
         client = MongoClient(MONGODB_URI)
         db = client['reddit_can']
         
+        # Compter les utilisateurs uniques
+        unique_users = len(db['posts'].distinct('author'))
+        
         stats = {
             'timestamp': datetime.now().isoformat(),
             'posts': db['posts'].count_documents({}),
             'comments': db['comments'].count_documents({}),
             'processed_posts': db['processed_posts'].count_documents({}),
-            'sentiment_results': db['sentiment_results'].count_documents({})
+            'sentiment_results': db['sentiment_results'].count_documents({}),
+            'unique_users': unique_users
         }
         
         logging.info(f"📈 Stats: {stats}")
         
         client.close()
         
-        # Pousser vers XCom pour les autres tâches
         context['task_instance'].xcom_push(key='pipeline_stats', value=stats)
         
         return stats
@@ -89,7 +92,6 @@ def check_ml_threshold(**context):
     logging.info("🔍 Vérification du seuil ML...")
     
     try:
-        # Récupérer les stats depuis XCom
         stats = context['task_instance'].xcom_pull(
             task_ids='stats_after_scraping',
             key='pipeline_stats'
@@ -115,6 +117,36 @@ def check_ml_threshold(**context):
         logging.error(f"❌ Erreur vérification: {e}")
         return 'skip_ml'
 
+def check_network_threshold(**context):
+    """Vérifie si on a assez d'utilisateurs pour l'analyse réseau"""
+    logging.info("🔍 Vérification du seuil Network Analysis...")
+    
+    try:
+        stats = context['task_instance'].xcom_pull(
+            task_ids='stats_after_ml',
+            key='pipeline_stats'
+        )
+        
+        if not stats:
+            logging.warning("⚠️ Pas de stats disponibles")
+            return 'skip_network'
+        
+        unique_users = stats.get('unique_users', 0)
+        
+        logging.info(f"👥 Utilisateurs uniques: {unique_users}")
+        logging.info(f"🎯 Seuil minimum: {MIN_USERS_FOR_NETWORK}")
+        
+        if unique_users >= MIN_USERS_FOR_NETWORK:
+            logging.info("✅ Seuil atteint → Lancement Network Analysis")
+            return 'run_network_analysis'
+        else:
+            logging.warning(f"⚠️ Seuil non atteint ({unique_users}/{MIN_USERS_FOR_NETWORK})")
+            return 'skip_network'
+            
+    except Exception as e:
+        logging.error(f"❌ Erreur vérification: {e}")
+        return 'skip_network'
+
 def generate_final_report(**context):
     """Génère un rapport complet du pipeline"""
     logging.info("\n" + "="*70)
@@ -122,7 +154,6 @@ def generate_final_report(**context):
     logging.info("="*70)
     
     try:
-        # Récupérer les stats finales
         stats = context['task_instance'].xcom_pull(
             task_ids='stats_final',
             key='pipeline_stats'
@@ -139,8 +170,9 @@ def generate_final_report(**context):
         logging.info(f"   Commentaires:        {stats['comments']:>5}")
         logging.info(f"   Posts traités:       {stats['processed_posts']:>5}")
         logging.info(f"   Sentiments analysés: {stats['sentiment_results']:>5}")
+        logging.info(f"   Utilisateurs uniques: {stats['unique_users']:>5}")
         
-        # Taux de couverture
+        # Taux de couverture ML
         if stats['processed_posts'] > 0:
             coverage = (stats['sentiment_results'] / stats['processed_posts']) * 100
             logging.info(f"\n✅ Taux de couverture ML: {coverage:.1f}%")
@@ -149,9 +181,11 @@ def generate_final_report(**context):
         client = MongoClient(MONGODB_URI)
         db = client['reddit_can']
         
+        sentiment_col = 'ml_prediction' if 'ml_prediction' in db['sentiment_results'].find_one() else 'vader_label'
+        
         pipeline = [
             {'$group': {
-                '_id': '$predicted_sentiment',
+                '_id': f'${sentiment_col}',
                 'count': {'$sum': 1}
             }}
         ]
@@ -163,6 +197,25 @@ def generate_final_report(**context):
             for item in sentiment_dist:
                 logging.info(f"   {item['_id']:15s}: {item['count']:5d}")
         
+        # Statistiques réseau
+        network_count = db['network_analysis'].count_documents({})
+        if network_count > 0:
+            logging.info(f"\n🕸️ Analyse de réseau:")
+            logging.info(f"   Utilisateurs analysés: {network_count}")
+            
+            # Top 5 influenceurs
+            top_influencers = list(db['network_analysis'].find(
+                {'is_influencer': True}
+            ).sort('influencer_rank', 1).limit(5))
+            
+            if top_influencers:
+                logging.info(f"\n🌟 Top 5 Influenceurs:")
+                for inf in top_influencers:
+                    rank = inf.get('influencer_rank', 0)
+                    user = inf.get('user', 'Unknown')
+                    degree = inf.get('degree', 0)
+                    logging.info(f"   #{rank}: {user:20s} (connexions: {degree})")
+        
         client.close()
         
         # Recommandations
@@ -171,12 +224,13 @@ def generate_final_report(**context):
             logging.warning("   ⚠️ Volume de posts faible - Élargir les critères de scraping")
         if stats['sentiment_results'] < 50:
             logging.warning("   ⚠️ Peu de sentiments analysés - Augmenter la fréquence")
-        if stats['posts'] >= 300:
+        if stats['unique_users'] < 50:
+            logging.warning("   ⚠️ Peu d'utilisateurs uniques - Diversifier les sources")
+        if stats['posts'] >= 300 and stats['unique_users'] >= 100:
             logging.info("   ✅ Volume de données excellent")
         
         logging.info("="*70)
         
-        # Sauvegarder le rapport
         context['task_instance'].xcom_push(key='final_report', value=stats)
         
         return stats
@@ -193,18 +247,14 @@ def cleanup_old_data(**context):
         client = MongoClient(MONGODB_URI)
         db = client['reddit_can']
         
-        # Garder seulement les 7 derniers jours
         cutoff_date = datetime.now() - timedelta(days=7)
         
-        # Compter avant
         old_posts = db['posts'].count_documents({
             'created_date': {'$lt': cutoff_date.isoformat()}
         })
         
         if old_posts > 0:
             logging.info(f"🗑️ Suppression de {old_posts} anciens posts")
-            # Décommenter pour activer le nettoyage
-            # db['posts'].delete_many({'created_date': {'$lt': cutoff_date.isoformat()}})
         else:
             logging.info("✅ Pas de données anciennes à supprimer")
         
@@ -217,27 +267,28 @@ def cleanup_old_data(**context):
 # DAG DEFINITION
 # ========================================
 with DAG(
-    dag_id='reddit_can_complete_pipeline',
+    dag_id='reddit_can_complete_pipeline_v2',
     default_args=default_args,
-    description='Pipeline Big Data complet - Reddit CAN 2025',
-    schedule_interval='0 */6 * * *',  # Toutes les 6 heures
+    description='Pipeline Big Data complet - Reddit CAN 2025 + Network Analysis',
+    schedule_interval='0 */6 * * *',
     start_date=days_ago(1),
     catchup=False,
-    tags=['bigdata', 'reddit', 'can2025', 'production'],
+    tags=['bigdata', 'reddit', 'can2025', 'production', 'network'],
     doc_md="""
-    # Pipeline Reddit CAN 2025 - Production
+    # Pipeline Reddit CAN 2025 - Production V2
     
     ## Objectif
-    Collecte, traitement et analyse de sentiments des discussions Reddit 
-    sur la CAN 2025 (Coupe d'Afrique des Nations).
+    Collecte, traitement, analyse de sentiments ET analyse de réseau social
+    des discussions Reddit sur la CAN 2025.
     
     ## Flux
     1. Vérification infrastructure (Kafka, MongoDB)
     2. Scraping Reddit → Kafka (10 minutes)
     3. Attente traitement Spark Streaming (60s)
     4. Analyse ML Sentiment (si >= 50 posts)
-    5. Génération rapport final
-    6. Nettoyage optionnel
+    5. **Analyse de Réseau Social (si >= 30 utilisateurs)** ← NOUVEAU
+    6. Génération rapport final
+    7. Nettoyage optionnel
     
     ## Fréquence
     Toutes les 6 heures
@@ -246,7 +297,8 @@ with DAG(
     - Kafka: Streaming temps réel
     - Spark: Traitement massif parallèle
     - MongoDB: Stockage NoSQL
-    - Spark ML: Analyse de sentiments (84% accuracy)
+    - Spark ML: Analyse de sentiments (85% accuracy)
+    - NetworkX: Analyse de réseau social
     - Streamlit: Dashboard interactif
     """
 ) as dag:
@@ -283,12 +335,12 @@ with DAG(
         environment={
             'KAFKA_BOOTSTRAP_SERVERS': 'kafka:29092',
             'KAFKA_TOPIC': 'reddit-can-posts',
-            'SCRAPING_INTERVAL': '600',  # 10 minutes
+            'SCRAPING_INTERVAL': '600',
             'PYTHONUNBUFFERED': '1'
         },
         execution_timeout=timedelta(minutes=12),
         mount_tmp_dir=False,
-        doc_md="Lance le scraper Reddit pour 10 minutes de collecte intensive"
+        doc_md="Lance le scraper Reddit pour 10 minutes de collecte"
     )
 
     # ========================================
@@ -296,7 +348,7 @@ with DAG(
     # ========================================
     wait_processing = BashOperator(
         task_id='wait_spark_streaming',
-        bash_command='echo "⏳ Attente traitement Spark Streaming (60s)..." && sleep 60',
+        bash_command='echo "⏳ Attente traitement Spark (60s)..." && sleep 60',
         doc_md="Attend que Spark Streaming traite les données"
     )
 
@@ -315,7 +367,7 @@ with DAG(
     check_threshold = BranchPythonOperator(
         task_id='check_ml_threshold',
         python_callable=check_ml_threshold,
-        doc_md="Vérifie si on a assez de données (>= 50 posts) pour lancer le ML"
+        doc_md="Vérifie si on a assez de données pour le ML"
     )
 
     # ========================================
@@ -335,7 +387,7 @@ with DAG(
         execution_timeout=timedelta(minutes=15),
         mount_tmp_dir=False,
         trigger_rule='none_failed_min_one_success',
-        doc_md="Lance l'analyse de sentiments avec Spark ML (Random Forest 84% accuracy)"
+        doc_md="Lance l'analyse de sentiments avec Spark ML"
     )
 
     # ========================================
@@ -343,23 +395,73 @@ with DAG(
     # ========================================
     skip_ml = BashOperator(
         task_id='skip_ml',
-        bash_command='echo "⚠️ ML skippé - Pas assez de données (< 50 posts)"',
+        bash_command='echo "⚠️ ML skippé - Pas assez de données"',
         trigger_rule='none_failed_min_one_success',
         doc_md="Skip si pas assez de données"
     )
 
     # ========================================
-    # TÂCHE 8: Stats FINALES
+    # TÂCHE 8: Stats APRÈS ML
+    # ========================================
+    stats_after_ml = PythonOperator(
+        task_id='stats_after_ml',
+        python_callable=get_pipeline_stats,
+        trigger_rule='none_failed_min_one_success',
+        doc_md="Récupère les stats après ML"
+    )
+
+    # ========================================
+    # TÂCHE 9: Vérifier seuil NETWORK
+    # ========================================
+    check_network = BranchPythonOperator(
+        task_id='check_network_threshold',
+        python_callable=check_network_threshold,
+        trigger_rule='none_failed_min_one_success',
+        doc_md="Vérifie si on a assez d'utilisateurs pour l'analyse réseau"
+    )
+
+    # ========================================
+    # TÂCHE 10a: LANCER NETWORK ANALYSIS ← NOUVEAU
+    # ========================================
+    run_network = DockerOperator(
+        task_id='run_network_analysis',
+        image='projet-bigdata-can-network-analysis:latest',
+        container_name='airflow_network_{{ ts_nodash }}',
+        api_version='auto',
+        auto_remove=True,
+        docker_url='unix://var/run/docker.sock',
+        network_mode='projet-bigdata-can_bigdata-network',
+        environment={
+            'MONGODB_URI': 'mongodb://admin:admin123@mongodb:27017/'
+        },
+        execution_timeout=timedelta(minutes=10),
+        mount_tmp_dir=False,
+        trigger_rule='none_failed_min_one_success',
+        doc_md="Lance l'analyse de réseau social avec NetworkX"
+    )
+
+    # ========================================
+    # TÂCHE 10b: SKIP NETWORK
+    # ========================================
+    skip_network = BashOperator(
+        task_id='skip_network',
+        bash_command='echo "⚠️ Network Analysis skippé - Pas assez d\'utilisateurs"',
+        trigger_rule='none_failed_min_one_success',
+        doc_md="Skip si pas assez d'utilisateurs"
+    )
+
+    # ========================================
+    # TÂCHE 11: Stats FINALES
     # ========================================
     stats_final = PythonOperator(
         task_id='stats_final',
         python_callable=get_pipeline_stats,
         trigger_rule='none_failed_min_one_success',
-        doc_md="Récupère les statistiques finales après ML"
+        doc_md="Récupère les statistiques finales"
     )
 
     # ========================================
-    # TÂCHE 9: Génération Rapport
+    # TÂCHE 12: Génération Rapport
     # ========================================
     generate_report = PythonOperator(
         task_id='generate_final_report',
@@ -369,17 +471,17 @@ with DAG(
     )
 
     # ========================================
-    # TÂCHE 10: Nettoyage (optionnel)
+    # TÂCHE 13: Nettoyage
     # ========================================
     cleanup = PythonOperator(
         task_id='cleanup_old_data',
         python_callable=cleanup_old_data,
         trigger_rule='all_done',
-        doc_md="Nettoie les données de plus de 7 jours (optionnel)"
+        doc_md="Nettoie les données de plus de 7 jours"
     )
 
     # ========================================
-    # TÂCHE 11: Notification Finale
+    # TÂCHE 14: Notification Finale
     # ========================================
     notify = BashOperator(
         task_id='pipeline_success',
@@ -390,6 +492,7 @@ with DAG(
         echo ""
         echo "🌐 Dashboard: http://localhost:8501"
         echo "📊 MongoDB: http://localhost:8081"
+        echo "🕸️ Network Analysis: COMPLET"
         echo ""
         echo "📝 Logs complets dans Airflow UI"
         echo "=========================================="
@@ -409,5 +512,9 @@ with DAG(
     stats_after >> check_threshold
     check_threshold >> [run_ml, skip_ml]
     
-    # Phase 3: Finalisation
-    [run_ml, skip_ml] >> stats_final >> generate_report >> cleanup >> notify
+    # Phase 3: Stats après ML et décision Network
+    [run_ml, skip_ml] >> stats_after_ml >> check_network
+    check_network >> [run_network, skip_network]
+    
+    # Phase 4: Finalisation
+    [run_network, skip_network] >> stats_final >> generate_report >> cleanup >> notify
