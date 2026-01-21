@@ -1,0 +1,26 @@
+[2026-01-21T06:39:19.950+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: reddit_can_complete_pipeline_v2.pipeline_success scheduled__2026-01-21T00:00:00+00:00 [queued]>
+[2026-01-21T06:39:19.974+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: reddit_can_complete_pipeline_v2.pipeline_success scheduled__2026-01-21T00:00:00+00:00 [queued]>
+[2026-01-21T06:39:19.975+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-01-21T06:39:20.007+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): pipeline_success> on 2026-01-21 00:00:00+00:00
+[2026-01-21T06:39:20.019+0000] {standard_task_runner.py:60} INFO - Started process 296 to run task
+[2026-01-21T06:39:20.029+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'reddit_can_complete_pipeline_v2', 'pipeline_success', 'scheduled__2026-01-21T00:00:00+00:00', '--job-id', '87', '--raw', '--subdir', 'DAGS_FOLDER/reddit_can_complete_pipeline.py', '--cfg-path', '/tmp/tmpr276baa2']
+[2026-01-21T06:39:20.034+0000] {standard_task_runner.py:88} INFO - Job 87: Subtask pipeline_success
+[2026-01-21T06:39:20.147+0000] {task_command.py:423} INFO - Running <TaskInstance: reddit_can_complete_pipeline_v2.pipeline_success scheduled__2026-01-21T00:00:00+00:00 [running]> on host c3413b3a7a99
+[2026-01-21T06:39:20.336+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='bigdata_team' AIRFLOW_CTX_DAG_ID='reddit_can_complete_pipeline_v2' AIRFLOW_CTX_TASK_ID='pipeline_success' AIRFLOW_CTX_EXECUTION_DATE='2026-01-21T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-21T00:00:00+00:00'
+[2026-01-21T06:39:20.339+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-01-21T06:39:20.342+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n        echo "=========================================="\n        echo "✅ PIPELINE TERMINÉ AVEC SUCCÈS"\n        echo "=========================================="\n        echo ""\n        echo "🌐 Dashboard: http://localhost:8501"\n        echo "📊 MongoDB: http://localhost:8081"\n        echo "🕸️ Network Analysis: COMPLET"\n        echo ""\n        echo "📝 Logs complets dans Airflow UI"\n        echo "=========================================="\n        ']
+[2026-01-21T06:39:20.361+0000] {subprocess.py:86} INFO - Output:
+[2026-01-21T06:39:20.366+0000] {subprocess.py:93} INFO - ==========================================
+[2026-01-21T06:39:20.367+0000] {subprocess.py:93} INFO - ✅ PIPELINE TERMINÉ AVEC SUCCÈS
+[2026-01-21T06:39:20.368+0000] {subprocess.py:93} INFO - ==========================================
+[2026-01-21T06:39:20.369+0000] {subprocess.py:93} INFO - 
+[2026-01-21T06:39:20.370+0000] {subprocess.py:93} INFO - 🌐 Dashboard: http://localhost:8501
+[2026-01-21T06:39:20.371+0000] {subprocess.py:93} INFO - 📊 MongoDB: http://localhost:8081
+[2026-01-21T06:39:20.372+0000] {subprocess.py:93} INFO - 🕸️ Network Analysis: COMPLET
+[2026-01-21T06:39:20.373+0000] {subprocess.py:93} INFO - 
+[2026-01-21T06:39:20.374+0000] {subprocess.py:93} INFO - 📝 Logs complets dans Airflow UI
+[2026-01-21T06:39:20.375+0000] {subprocess.py:93} INFO - ==========================================
+[2026-01-21T06:39:20.376+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-01-21T06:39:20.438+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=reddit_can_complete_pipeline_v2, task_id=pipeline_success, execution_date=20260121T000000, start_date=20260121T063919, end_date=20260121T063920
+[2026-01-21T06:39:20.483+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-01-21T06:39:20.525+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -16,7 +16,7 @@ class RedditKafkaProducer:
         # Configuration Kafka
         kafka_servers = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
         self.topic = os.getenv('KAFKA_TOPIC', 'reddit-can-posts')
-        self.scraping_interval = int(os.getenv('SCRAPING_INTERVAL', 300))
+        self.scraping_interval = int(os.getenv('SCRAPING_INTERVAL', 30))
         
         print(f"🔌 Connexion à Kafka: {kafka_servers}")
         print(f"📍 Topic: {self.topic}")

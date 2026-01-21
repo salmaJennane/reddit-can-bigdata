@@ -215,7 +215,7 @@ services:
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       KAFKA_TOPIC: reddit-can-posts
-      SCRAPING_INTERVAL: 600
+      SCRAPING_INTERVAL: 30
       PYTHONUNBUFFERED: 1
     networks:
       - bigdata-network

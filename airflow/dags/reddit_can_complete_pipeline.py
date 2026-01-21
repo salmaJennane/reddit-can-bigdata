@@ -270,7 +270,7 @@ with DAG(
     dag_id='reddit_can_complete_pipeline_v2',
     default_args=default_args,
     description='Pipeline Big Data complet - Reddit CAN 2025 + Network Analysis',
-    schedule_interval='0 */6 * * *',
+    schedule_interval='0 */30 * * *',
     start_date=days_ago(1),
     catchup=False,
     tags=['bigdata', 'reddit', 'can2025', 'production', 'network'],
